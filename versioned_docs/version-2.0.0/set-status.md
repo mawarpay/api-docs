@@ -41,6 +41,7 @@ The **Set transaction status** API (`POST /api/v2/transaction-set-status`) is av
 | Field | Type | Required | Description |
 |---|---|---|---|
 | `trxId` | string | Yes | Transaction ID to update (for example the `trxId` returned when creating QRIS, VA, or other flows) |
+| `field` | string | Yes | Lookup type for the transaction identifier. Allowed values: `TRX_REFERENCE`, `REFERENCE_NUMBER`, `TRX_ID` |
 | `status` | string | Yes | Target status value (see [Available status values](#available-status-values)) |
 
 ### Code example
@@ -59,6 +60,7 @@ curl --location 'https://sandbox.ilonapay.com/api/v2/transaction-set-status' \
   --header 'Authorization: Bearer {token}' \
   --data '{
   "trxId": "TRXQRIS3B2XHYDVK7OMRSSSSI",
+  "field": "TRX_ID",
   "status": "completed"
 }'
 ```
@@ -77,13 +79,18 @@ Create a transaction in sandbox (for example [Create QRIS](/docs/qris-create)), 
 
 ```json
 {
-  "code": 2000203,
-  "message": "Transaction status updated",
-  "data": {
-    "status": "completed",
-    "trxId": "TRXQRIS3B2XHYDVK7OMRSSSSI",
-    "updatedAt": "2026-05-09T12:26:16Z"
-  }
+    "code": 2000203,
+    "message": "Transaction status updated",
+    "data": {
+        "methodType": "EWALLET",
+        "netAmount": 8000,
+        "referenceNumber": "800335438829",
+        "status": "completed",
+        "trxId": "TRXWITH3HRQ4JJEH94ZFJJW6Y",
+        "trxReference": "d834b31b-fe6e-4157-b11c-7f925b7fe66f",
+        "trxType": "withdraw",
+        "updatedAt": "2026-05-29T05:45:43.882Z"
+    }
 }
 ```
 
