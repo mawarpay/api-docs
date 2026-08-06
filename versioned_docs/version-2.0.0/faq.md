@@ -7,7 +7,7 @@ sidebar_position: 14
 ## FAQ
 
 ### Which environment should I use for testing?
-Use sandbox: `https://sandbox.ilonapay.com`.
+Use sandbox: `https://sandbox.mawarpay.com`.
 
 ### How do I authenticate API requests?
 Use `Authorization: Bearer {token}` and `X-API-KEY: {apiKey}`.

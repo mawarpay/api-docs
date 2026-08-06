@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'IlonaPay API Docs',
-  tagline: 'IlonaPay API Documentation',
-  favicon: 'img/favicon.ico',
+  title: 'MawarPay API Docs',
+  tagline: 'MawarPay API Documentation',
+  favicon: 'img/mawar-favicon.png',
 
   // Future flags — requires Docusaurus 3.10+ (see validation in configValidation.js)
   future: {
@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://apidocs.ilonapay.com',
+  url: 'https://apidocs.mawarpay.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -113,14 +113,14 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/ilona-light-logo.png',
+    image: 'img/mawar-light-logo.png',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
       logo: {
-        alt: 'IlonaPay Logo',
-        src: 'img/ilona-logo.png',
+        alt: 'MawarPay Logo',
+        src: 'img/mawar-logo.png',
       },
       items: [
         {type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Docs'},
@@ -146,7 +146,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} IlonaPay.`,
+      copyright: `Copyright © ${new Date().getFullYear()} MawarPay.`,
     },
     prism: {
       theme: prismThemes.github,

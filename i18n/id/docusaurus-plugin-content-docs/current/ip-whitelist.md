@@ -14,7 +14,7 @@ Tingkatkan keamanan API Anda dengan membatasi akses hanya untuk alamat IP terten
 
 ## Mengelola Daftar Putih IP
 
-Akses antarmuka manajemen untuk menambah, melihat, dan menghapus alamat yang diizinkan: [Kelola IP Whitelist](https://sandbox.ilonapay.com/user/brand).
+Akses antarmuka manajemen untuk menambah, melihat, dan menghapus alamat yang diizinkan: [Kelola IP Whitelist](https://sandbox.mawarpay.com/user/brand).
 
 Dasbor memungkinkan Anda mengatur jenis alamat, deskripsi, rentang CIDR, tanggal kedaluwarsa, dan status aktivasi.
 
@@ -168,7 +168,7 @@ Setelah menambahkan alamat IP ke whitelist, validasi akses dengan permintaan uji
 
 ```
 # Menguji akses API dari server Anda
-curl -X GET "https://sandbox.ilonapay.com/api/v1/check-status/TEST123" \
+curl -X GET "https://sandbox.mawarpay.com/api/v1/check-status/TEST123" \
   -H "Accept: application/json" \
   -H "X-MERCHANT-KEY: your_merchant_key" \
   -H "X-API-KEY: your_api_key"

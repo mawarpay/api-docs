@@ -127,7 +127,7 @@ curl --location '/api/v2/qris/create' \
     "paymentChannel": "QRIS",
     "expiredAt": "2026-04-28T18:00:17.192335563Z",
     "payload": "00020101021226670016COM.....",
-    "imageUrl": "https://sandbox.ilonapay.com/qris/view/TRXQRIS3991PZZH3A7J5C6YE8",
+    "imageUrl": "https://sandbox.mawarpay.com/qris/view/TRXQRIS3991PZZH3A7J5C6YE8",
     "imageBase64": "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX.....",
     "provider": {
       "name": "Nobu",

@@ -12,8 +12,8 @@ Use environment-specific base URLs to separate development/testing traffic from 
 
 | Environment | Base URL | Use Case |
 |---|---|---|
-| Sandbox | `https://sandbox.ilonapay.com` | Development, QA, UAT, and integration testing |
-| Production | `https://production.ilonapay.com` | Live payment traffic |
+| Sandbox | `https://sandbox.mawarpay.com` | Development, QA, UAT, and integration testing |
+| Production | `https://production.mawarpay.com` | Live payment traffic |
 
 ## Environment Rules
 

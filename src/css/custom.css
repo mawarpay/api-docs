@@ -6,25 +6,107 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Brand */
+  --color-primary-50: #fff1f3;
+  --color-primary-100: #ffe4e8;
+  --color-primary-200: #fecdd6;
+  --color-primary-300: #fda4b3;
+  --color-primary-400: #fb7187;
+  --color-primary-500: #ed2344;
+  --color-primary-600: #d90627;
+  --color-primary-700: #b40422;
+  --color-primary-800: #92111f;
+  --color-primary-900: #7a1220;
+  --color-primary-950: #43040e;
+
+  /* Navy */
+  --color-secondary-50: #eef2ff;
+  --color-secondary-100: #dbe5ff;
+  --color-secondary-200: #bfd1ff;
+  --color-secondary-300: #93b2ff;
+  --color-secondary-400: #628cff;
+  --color-secondary-500: #305fd8;
+  --color-secondary-600: #1b46b3;
+  --color-secondary-700: #12358a;
+  --color-secondary-800: #0a214f;
+  --color-secondary-900: #010f33;
+  --color-secondary-950: #00071d;
+
+  /* Accent */
+  --color-accent: #dec9ad;
+  --color-accent-light: #fdfccd;
+
+  /* Surface */
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+
+  /* Typography */
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+
+  /* Infima primary (brand red) — hex values for Infima color math */
+  --ifm-color-primary: #ed2344;
+  --ifm-color-primary-dark: #d90627;
+  --ifm-color-primary-darker: #b40422;
+  --ifm-color-primary-darkest: #92111f;
+  --ifm-color-primary-light: #fb7187;
+  --ifm-color-primary-lighter: #fda4b3;
+  --ifm-color-primary-lightest: #fecdd6;
+
+  --ifm-background-color: #f8fafc;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-color-content: #111827;
+  --ifm-color-content-secondary: #6b7280;
+  --ifm-toc-border-color: #e5e7eb;
+  --ifm-hr-border-color: #e5e7eb;
+  --ifm-color-emphasis-300: #e5e7eb;
+
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-footer-background-color: #010f33;
+  --ifm-footer-color: #dbe5ff;
+  --ifm-footer-link-color: #dec9ad;
+  --ifm-footer-title-color: #ffffff;
+  --ifm-link-color: #ed2344;
+  --ifm-menu-color-active: #ed2344;
+  --ifm-navbar-link-hover-color: #ed2344;
+
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(237, 35, 68, 0.08);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --color-background: #00071d;
+  --color-surface: #010f33;
+  --color-border: #0a214f;
+  --color-text: #f8fafc;
+  --color-text-muted: #93b2ff;
+
+  --ifm-color-primary: #fb7187;
+  --ifm-color-primary-dark: #ed2344;
+  --ifm-color-primary-darker: #d90627;
+  --ifm-color-primary-darkest: #b40422;
+  --ifm-color-primary-light: #fda4b3;
+  --ifm-color-primary-lighter: #fecdd6;
+  --ifm-color-primary-lightest: #ffe4e8;
+
+  --ifm-background-color: #00071d;
+  --ifm-background-surface-color: #010f33;
+  --ifm-color-content: #f8fafc;
+  --ifm-color-content-secondary: #93b2ff;
+  --ifm-toc-border-color: #0a214f;
+  --ifm-hr-border-color: #0a214f;
+  --ifm-color-emphasis-300: #0a214f;
+
+  --ifm-navbar-background-color: #010f33;
+  --ifm-footer-background-color: #00071d;
+  --ifm-footer-color: #bfd1ff;
+  --ifm-footer-link-color: #fdfccd;
+  --ifm-footer-title-color: #ffffff;
+  --ifm-link-color: #fb7187;
+  --ifm-menu-color-active: #fb7187;
+  --ifm-navbar-link-hover-color: #fb7187;
+
+  --docusaurus-highlighted-code-line-bg: rgba(251, 113, 135, 0.15);
 }

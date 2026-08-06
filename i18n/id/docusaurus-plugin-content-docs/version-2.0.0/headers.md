@@ -20,7 +20,7 @@ Sebagian besar endpoint API yang aman memerlukan header JSON standar serta heade
 ## Contoh Penggunaan Header
 
 ```bash
-curl --location 'https://sandbox.ilonapay.com/api/v2/example' \
+curl --location 'https://sandbox.mawarpay.com/api/v2/example' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Bearer {token}' \

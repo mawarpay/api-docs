@@ -11,14 +11,14 @@ import TabItem from '@theme/TabItem';
 
 # Webhook
 
-Ilonapay mengirim notifikasi real-time ke URL IPN yang Anda tentukan ketika status pembayaran berubah. Ini memastikan Anda segera menerima informasi tentang pembayaran yang selesai, gagal, dan pembaruan status lainnya.
+Mawarpay mengirim notifikasi real-time ke URL IPN yang Anda tentukan ketika status pembayaran berubah. Ini memastikan Anda segera menerima informasi tentang pembayaran yang selesai, gagal, dan pembaruan status lainnya.
 
 Konfigurasikan endpoint webhook Anda untuk menerima notifikasi pembayaran secara instan. Antarmuka konfigurasi webhook memungkinkan Anda mengatur URL endpoint, mengaktifkan atau menonaktifkan webhook, memverifikasi sertifikat SSL, dan menguji integrasi webhook.
 
 ![Antarmuka Konfigurasi Webhook](/img/webhook.png)
 
 :::note Pengiriman Andal
-Ilonapay melakukan retry pengiriman webhook yang gagal hingga 5 kali menggunakan exponential backoff.
+Mawarpay melakukan retry pengiriman webhook yang gagal hingga 5 kali menggunakan exponential backoff.
 :::
 
 ---

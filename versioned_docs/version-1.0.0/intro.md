@@ -6,14 +6,14 @@ sidebar_position: 1
 
 # Tutorial Intro
 
-Integrate IlonaPay payment gateway into your application with our comprehensive RESTful API. Accept payments from wallets, cards, and multiple payment methods with enterprise-grade security.
+Integrate MawarPay payment gateway into your application with our comprehensive RESTful API. Accept payments from wallets, cards, and multiple payment methods with enterprise-grade security.
 
 > **Environments**  
-> Use `https://sandbox.ilonapay.com` for testing or development and `https://production.ilonapay.com` for live traffic. Credentials and data are isolated between environments.
+> Use `https://sandbox.mawarpay.com` for testing or development and `https://production.mawarpay.com` for live traffic. Credentials and data are isolated between environments.
 
 ## Authentication
 
-IlonaPay API uses API keys to authenticate requests. You can obtain your credentials from your merchant dashboard.
+MawarPay API uses API keys to authenticate requests. You can obtain your credentials from your merchant dashboard.
 
 ### Required Credentials
 |Header|	Description|	Location

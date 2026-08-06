@@ -11,10 +11,10 @@ import TabItem from '@theme/TabItem';
 
 # API Docs v2
 
-Welcome to the IlonaPay API v2 documentation. This guide provides everything needed to integrate secure, reliable payment workflows in web-based systems using RESTful APIs and JSON.
+Welcome to the MawarPay API v2 documentation. This guide provides everything needed to integrate secure, reliable payment workflows in web-based systems using RESTful APIs and JSON.
 
 :::tip Environment Separation
-Use `https://sandbox.ilonapay.com` for development/testing and `https://production.ilonapay.com` for live traffic. Keep credentials and tokens separated per environment.
+Use `https://sandbox.mawarpay.com` for development/testing and `https://production.mawarpay.com` for live traffic. Keep credentials and tokens separated per environment.
 :::
 
 ## Overview
@@ -30,8 +30,8 @@ API v2 is designed for backend-to-backend integrations with a focus on:
 
 Use the base URL according to your environment:
 
-- **Sandbox:** `https://sandbox.ilonapay.com`
-- **Production:** `https://production.ilonapay.com`
+- **Sandbox:** `https://sandbox.mawarpay.com`
+- **Production:** `https://production.mawarpay.com`
 
 All endpoint paths in this documentation are relative to the selected base URL.
 

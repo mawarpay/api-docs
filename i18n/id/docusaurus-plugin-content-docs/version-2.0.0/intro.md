@@ -11,10 +11,10 @@ import TabItem from '@theme/TabItem';
 
 # Dokumentasi API v2
 
-Selamat datang di dokumentasi IlonaPay API v2. Panduan ini menyediakan semua yang dibutuhkan untuk mengintegrasikan alur pembayaran yang aman dan andal pada sistem berbasis web menggunakan RESTful API dan JSON.
+Selamat datang di dokumentasi MawarPay API v2. Panduan ini menyediakan semua yang dibutuhkan untuk mengintegrasikan alur pembayaran yang aman dan andal pada sistem berbasis web menggunakan RESTful API dan JSON.
 
 :::tip Pemisahan Environment
-Gunakan `https://sandbox.ilonapay.com` untuk pengembangan/pengujian dan `https://production.ilonapay.com` untuk trafik produksi. Pisahkan kredensial dan token per environment.
+Gunakan `https://sandbox.mawarpay.com` untuk pengembangan/pengujian dan `https://production.mawarpay.com` untuk trafik produksi. Pisahkan kredensial dan token per environment.
 :::
 
 ## Ringkasan
@@ -30,8 +30,8 @@ API v2 dirancang untuk integrasi backend-to-backend dengan fokus pada:
 
 Gunakan base URL sesuai environment Anda:
 
-- **Sandbox:** `https://sandbox.ilonapay.com`
-- **Production:** `https://production.ilonapay.com`
+- **Sandbox:** `https://sandbox.mawarpay.com`
+- **Production:** `https://production.mawarpay.com`
 
 Semua path endpoint dalam dokumentasi ini relatif terhadap base URL yang dipilih.
 

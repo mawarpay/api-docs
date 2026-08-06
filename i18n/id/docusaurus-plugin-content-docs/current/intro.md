@@ -6,14 +6,14 @@ sidebar_position: 1
 
 # Pengantar Tutorial
 
-Integrasikan gateway pembayaran IlonaPay ke dalam aplikasi Anda menggunakan RESTful API kami yang komprehensif. Terima pembayaran dari dompet digital, kartu, dan beragam metode pembayaran dengan keamanan kelas enterprise.
+Integrasikan gateway pembayaran MawarPay ke dalam aplikasi Anda menggunakan RESTful API kami yang komprehensif. Terima pembayaran dari dompet digital, kartu, dan beragam metode pembayaran dengan keamanan kelas enterprise.
 
 > **Lingkungan**  
-> Gunakan `https://sandbox.ilonapay.com` untuk pengujian atau pengembangan dan `https://production.ilonapay.com` untuk lalu lintas produksi. Kredensial dan data terisolasi antar lingkungan.
+> Gunakan `https://sandbox.mawarpay.com` untuk pengujian atau pengembangan dan `https://production.mawarpay.com` untuk lalu lintas produksi. Kredensial dan data terisolasi antar lingkungan.
 
 ## Autentikasi
 
-IlonaPay API menggunakan API key untuk mengautentikasi permintaan. Anda dapat memperoleh kredensial melalui dasbor merchant.
+MawarPay API menggunakan API key untuk mengautentikasi permintaan. Anda dapat memperoleh kredensial melalui dasbor merchant.
 
 ### Kredensial yang Diperlukan
 | Header | Deskripsi | Lokasi |

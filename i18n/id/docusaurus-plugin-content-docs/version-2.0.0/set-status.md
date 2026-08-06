@@ -24,7 +24,7 @@ API **Set transaction status** (`POST /api/v2/transaction-set-status`) tersedia 
 | Item | Value (sandbox) |
 |---|---|
 | HTTP method | `POST` |
-| URL | `https://sandbox.ilonapay.com/api/v2/transaction-set-status` |
+| URL | `https://sandbox.mawarpay.com/api/v2/transaction-set-status` |
 | Auth | Yes (`Authorization: Bearer {token}`, `X-API-KEY`) |
 
 ### Request headers
@@ -52,7 +52,7 @@ API **Set transaction status** (`POST /api/v2/transaction-set-status`) tersedia 
 <TabItem value="curl">
 
 ```bash
-curl --location 'https://sandbox.ilonapay.com/api/v2/transaction-set-status' \
+curl --location 'https://sandbox.mawarpay.com/api/v2/transaction-set-status' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --header 'X-API-KEY: {apiKey}' \

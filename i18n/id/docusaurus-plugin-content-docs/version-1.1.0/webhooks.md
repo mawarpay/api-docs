@@ -9,14 +9,14 @@ import TabItem from '@theme/TabItem';
 
 # Webhook (IPN)
 
-IlonaPay mengirim notifikasi real-time ke URL IPN yang Anda tentukan ketika status pembayaran berubah. Dengan demikian Anda dapat segera mengetahui pembayaran yang berhasil, gagal, atau status lainnya.
+MawarPay mengirim notifikasi real-time ke URL IPN yang Anda tentukan ketika status pembayaran berubah. Dengan demikian Anda dapat segera mengetahui pembayaran yang berhasil, gagal, atau status lainnya.
 
 Konfigurasikan endpoint webhook Anda untuk menerima notifikasi pembayaran secara instan. Antarmuka konfigurasi webhook memungkinkan Anda mengatur URL endpoint, mengaktifkan atau menonaktifkan webhook, memverifikasi sertifikat SSL, dan menguji integrasi webhook Anda.
 
 ![Antarmuka Konfigurasi Webhook](/img/webhook.png)
 
 > **Pengiriman Andal**  
-> IlonaPay menerapkan logika retry pada pengiriman webhook yang gagal. Sistem akan mencoba ulang hingga 5 kali dengan pola eksponensial.
+> MawarPay menerapkan logika retry pada pengiriman webhook yang gagal. Sistem akan mencoba ulang hingga 5 kali dengan pola eksponensial.
 
 ---
 
@@ -27,7 +27,7 @@ Konfigurasikan endpoint webhook Anda untuk menerima notifikasi pembayaran secara
 | `Content-Type`         | Selalu `application/json`          | `application/json`        |
 | `x-signature`          | Signature HMAC-SHA256 untuk verifikasi | `a8b9c2d1e5f3...`         |
 
-Gunakan header di atas untuk memverifikasi bahwa webhook berasal dari IlonaPay dan belum diubah selama proses pengiriman.
+Gunakan header di atas untuk memverifikasi bahwa webhook berasal dari MawarPay dan belum diubah selama proses pengiriman.
 
 ---
 
@@ -114,7 +114,7 @@ Contoh payload untuk status penarikan dana:
 |-------|-----------|
 | `event` | Jenis event webhook. Contoh: `payment.updated`. |
 | `timestamp` | Waktu pengiriman dalam detik UNIX. |
-| `data.trx_id` | ID transaksi internal IlonaPay. |
+| `data.trx_id` | ID transaksi internal MawarPay. |
 | `data.ref_trx` | Referensi transaksi merchant (jika ada). |
 | `data.status` | Status terkini transaksi. |
 | `data.amount` | Jumlah transaksi dalam satuan terkecil mata uang. |
@@ -222,13 +222,13 @@ function verifySignature(string $signature, string $timestamp, string $body, str
 
 Berikut pola dasar untuk menangani webhook di server Anda:
 
-1. Periksa method HTTP (IlonaPay menggunakan POST).
+1. Periksa method HTTP (MawarPay menggunakan POST).
 2. Baca header `X-IPN-SIGNATURE` dan `X-IPN-TIMESTAMP`.
 3. Baca body mentah permintaan.
 4. Verifikasi signature menggunakan secret webhook.
 5. Parsing payload JSON.
 6. Perbarui status transaksi di sistem Anda.
-7. Kembalikan respons `200 OK` agar IlonaPay tahu webhook berhasil diterima.
+7. Kembalikan respons `200 OK` agar MawarPay tahu webhook berhasil diterima.
 
 > **Catatan**: Selalu balas dalam waktu kurang dari 5 detik. Jika lebih lama, webhook akan diulang.
 
@@ -242,7 +242,7 @@ const crypto = require('crypto');
 const app = express();
 app.use(bodyParser.json({verify: rawBodySaver}));
 
-const WEBHOOK_SECRET = process.env.ILONA_WEBHOOK_SECRET;
+const WEBHOOK_SECRET = process.env.MAWAR_WEBHOOK_SECRET;
 
 function rawBodySaver(req, res, buf) {
   req.rawBody = buf.toString();

@@ -8,7 +8,7 @@ sidebar_position: 7
 
 ## Kode Error
 
-API Ilonapay menggunakan kode respons HTTP standar untuk menunjukkan keberhasilan atau kegagalan permintaan API.
+API Mawarpay menggunakan kode respons HTTP standar untuk menunjukkan keberhasilan atau kegagalan permintaan API.
 
 ### HTTP Status Codes
 
@@ -33,7 +33,7 @@ API Ilonapay menggunakan kode respons HTTP standar untuk menunjukkan keberhasila
 | `INVALID_CURRENCY`    | Kode mata uang tidak didukung              | Gunakan kode mata uang yang didukung (USD, EUR, dll.)      |
 | `DUPLICATE_REFERENCE` | Referensi transaksi sudah ada   | Gunakan referensi transaksi yang unik                  |
 | `EXPIRED_SESSION`     | Sesi pembayaran telah kedaluwarsa            | Buat permintaan pembayaran baru                        |
-| `MERCHANT_SUSPENDED`  | Akun merchant ditangguhkan          | Hubungi dukungan Ilonapay                            |
+| `MERCHANT_SUSPENDED`  | Akun merchant ditangguhkan          | Hubungi dukungan Mawarpay                            |
 
 ### Format Error Response
 

@@ -1,11 +1,11 @@
-# IlonaPay API Documentation
+# MawarPay API Documentation
 
 [![Docusaurus](https://img.shields.io/badge/Docusaurus-3.9.2-blue.svg)](https://docusaurus.io/)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22.0-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue.svg)](https://www.typescriptlang.org/)
-[![Website](https://img.shields.io/badge/Website-Online-brightgreen.svg)](https://apidocs.ilonapay.com)
+[![Website](https://img.shields.io/badge/Website-Online-brightgreen.svg)](https://apidocs.mawarpay.com)
 
-This is the official API documentation website for IlonaPay, built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This is the official API documentation website for MawarPay, built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Features
 
@@ -61,8 +61,8 @@ This command generates static content into the `build` directory and can be serv
 Build the static site and serve it with Nginx inside Docker:
 
 ```bash
-docker build -t ilonapay/api-docs .
-docker run --rm -p 8080:80 ilonapay/api-docs
+docker build -t mawarpay/api-docs .
+docker run --rm -p 8080:80 mawarpay/api-docs
 ```
 
 Then open `http://localhost:8080` to view the docs.
@@ -97,7 +97,7 @@ yarn clear
 
 ## Deployment
 
-The site is deployed to `https://apidocs.ilonapay.com`
+The site is deployed to `https://apidocs.mawarpay.com`
 
 ### Vercel Deployment (Recommended)
 
@@ -150,20 +150,20 @@ Continuous deployment is configured via `.github/workflows/vercel-deploy.yml`. T
    ```
 3. **Create an Artifact Registry repo (one-time)**
    ```bash
-   gcloud artifacts repositories create ilonapay-docs \
+   gcloud artifacts repositories create mawarpay-docs \
      --repository-format=docker \
      --location=<REGION> \
-     --description="IlonaPay API Docs images"
+     --description="MawarPay API Docs images"
    ```
 4. **Build & push the container with Cloud Build**
    ```bash
    gcloud builds submit \
-     --tag <REGION>-docker.pkg.dev/<PROJECT_ID>/ilonapay-docs/api-docs:$(git rev-parse --short HEAD)
+     --tag <REGION>-docker.pkg.dev/<PROJECT_ID>/mawarpay-docs/api-docs:$(git rev-parse --short HEAD)
    ```
 5. **Deploy to Cloud Run**
    ```bash
-   gcloud run deploy ilonapay-api-docs \
-     --image <REGION>-docker.pkg.dev/<PROJECT_ID>/ilonapay-docs/api-docs:$(git rev-parse --short HEAD) \
+   gcloud run deploy mawarpay-api-docs \
+     --image <REGION>-docker.pkg.dev/<PROJECT_ID>/mawarpay-docs/api-docs:$(git rev-parse --short HEAD) \
      --region=<REGION> \
      --platform=managed \
      --allow-unauthenticated \
@@ -215,4 +215,4 @@ api-docs/
 
 ## License
 
-Copyright © 2025 IlonaPay. All rights reserved.
+Copyright © 2025 MawarPay. All rights reserved.

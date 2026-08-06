@@ -12,8 +12,8 @@ Gunakan base URL spesifik per environment untuk memisahkan trafik pengembangan/p
 
 | Environment | Base URL | Use Case |
 |---|---|---|
-| Sandbox | `https://sandbox.ilonapay.com` | Development, QA, UAT, dan pengujian integrasi |
-| Production | `https://production.ilonapay.com` | Trafik pembayaran live |
+| Sandbox | `https://sandbox.mawarpay.com` | Development, QA, UAT, dan pengujian integrasi |
+| Production | `https://production.mawarpay.com` | Trafik pembayaran live |
 
 ## Aturan Environment
 

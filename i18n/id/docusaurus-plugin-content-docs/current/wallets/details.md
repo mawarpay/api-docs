@@ -244,7 +244,7 @@ logger = logging.getLogger(__name__)
 
 class WalletManager:
     """
-    Manajemen Dompet untuk IlonaPay Payment Gateway
+    Manajemen Dompet untuk MawarPay Payment Gateway
     """
 
     def __init__(self, merchant_key: str, api_key: str, timeout: int = 30):

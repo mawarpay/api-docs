@@ -13,11 +13,11 @@ Enhance your API security by restricting access to specific IP addresses. Only w
 
 ## Managing the IP Whitelist
 
-Access the management interface to add, view, and remove authorized addresses: [Manage IP Whitelist](https://sandbox.ilonapay.com/user/brand).
+Access the management interface to add, view, and remove authorized addresses: [Manage IP Whitelist](https://sandbox.mawarpay.com/user/brand).
 
 The dashboard lets you configure address type, description, CIDR ranges, expiration dates, and activation status.
 
-![IP Whitelist management interface](https://sandbox.ilonapay.com/general/static/ip-whitelist.png)
+![IP Whitelist management interface](https://sandbox.mawarpay.com/general/static/ip-whitelist.png)
 
 ## Benefits of IP Whitelisting
 
@@ -165,7 +165,7 @@ After whitelisting an IP address, validate access with a test request.
 
 ```
 # Test API access from your server
-curl -X GET "https://sandbox.ilonapay.com/api/v1/check-status/TEST123" \
+curl -X GET "https://sandbox.mawarpay.com/api/v1/check-status/TEST123" \
   -H "Accept: application/json" \
   -H "X-MERCHANT-KEY: your_merchant_key" \
   -H "X-API-KEY: your_api_key"

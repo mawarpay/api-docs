@@ -8,7 +8,7 @@ sidebar_position: 7
 
 ## Error Codes
 
-The Ilonapay API uses standard HTTP response codes to indicate success or failure of API requests.
+The Mawarpay API uses standard HTTP response codes to indicate success or failure of API requests.
 
 ### HTTP Status Codes
 
@@ -33,7 +33,7 @@ The Ilonapay API uses standard HTTP response codes to indicate success or failur
 | `INVALID_CURRENCY`    | Unsupported currency code              | Use a supported currency code (USD, EUR, etc.)      |
 | `DUPLICATE_REFERENCE` | Transaction reference already exists   | Use a unique transaction reference                  |
 | `EXPIRED_SESSION`     | Payment session has expired            | Create a new payment request                        |
-| `MERCHANT_SUSPENDED`  | Merchant account is suspended          | Contact Ilonapay support                            |
+| `MERCHANT_SUSPENDED`  | Merchant account is suspended          | Contact Mawarpay support                            |
 
 ### Error Response Format
 

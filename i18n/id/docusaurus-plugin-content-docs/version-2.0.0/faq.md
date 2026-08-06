@@ -7,7 +7,7 @@ sidebar_position: 14
 ## FAQ
 
 ### Environment apa yang sebaiknya dipakai untuk testing?
-Gunakan sandbox: `https://sandbox.ilonapay.com`.
+Gunakan sandbox: `https://sandbox.mawarpay.com`.
 
 ### Bagaimana cara autentikasi request API?
 Gunakan `Authorization: Bearer {token}` dan `X-API-KEY: {apiKey}`.

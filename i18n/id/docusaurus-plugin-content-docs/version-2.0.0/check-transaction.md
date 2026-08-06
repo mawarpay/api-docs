@@ -65,7 +65,7 @@ Alur umum:
 <TabItem value="payin">
 
 ```bash
-curl --location 'https://production.ilonapay.com/api/v2/transactions' \
+curl --location 'https://production.mawarpay.com/api/v2/transactions' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --header 'X-API-KEY: {apiKey}' \
@@ -81,7 +81,7 @@ curl --location 'https://production.ilonapay.com/api/v2/transactions' \
 <TabItem value="payout">
 
 ```bash
-curl --location 'https://production.ilonapay.com/api/v2/transactions' \
+curl --location 'https://production.mawarpay.com/api/v2/transactions' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --header 'X-API-KEY: {apiKey}' \

@@ -11,14 +11,14 @@ import TabItem from '@theme/TabItem';
 
 # Webhooks
 
-Ilonapay sends real-time notifications to your specified IPN URL when payment status changes. This ensures you're immediately notified of payment completions, failures, and other status updates.
+Mawarpay sends real-time notifications to your specified IPN URL when payment status changes. This ensures you're immediately notified of payment completions, failures, and other status updates.
 
 Configure your webhook endpoint to receive instant payment notifications. The webhook configuration interface allows you to set up your endpoint URL, enable or disable webhooks, verify SSL certificates, and test your webhook integration.
 
 ![Webhook Configuration Interface](/img/webhook-v2.png)
 
 :::note Reliable Delivery
-Ilonapay retries failed webhook deliveries up to 5 times using exponential backoff.
+Mawarpay retries failed webhook deliveries up to 5 times using exponential backoff.
 :::
 
 ---
