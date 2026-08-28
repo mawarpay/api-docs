@@ -6,7 +6,7 @@ sidebar_position: 15
 
 ## Changelog
 
-## 2.0.0
+## 1.0.0
 
 - Menstandarkan format dokumentasi endpoint untuk bagian request/response.
 - Menambahkan halaman khusus untuk:

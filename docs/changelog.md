@@ -6,7 +6,7 @@ sidebar_position: 15
 
 ## Changelog
 
-## 2.0.0
+## 1.0.0
 
 - Standardized endpoint documentation format for request/response sections.
 - Added dedicated pages for:
