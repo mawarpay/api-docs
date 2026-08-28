@@ -97,45 +97,53 @@ yarn clear
 
 ## Deployment
 
-The site is deployed to `https://apidocs.mawarpay.com`
+The site is deployed to `https://apidocs.mawarpay.com`.
 
-### Vercel Deployment (Recommended)
+### Deployment flow
 
-This project is optimized for Vercel deployment:
+```mermaid
+flowchart LR
+  Dev[Developer] -->|push to main| GH[GitHub repository]
+  GH -->|workflow trigger| GHA[GitHub Actions]
+  GHA -->|npm ci| Install[Install dependencies]
+  Install -->|npm run build| Build[Docusaurus build/]
+  Build -->|cloudflare/pages-action| CFP[Cloudflare Pages]
+  CFP -->|global CDN| Site[apidocs.mawarpay.com]
+  Site --> EN["/docs — English"]
+  Site --> ID["/id/docs — Bahasa Indonesia"]
+```
 
-1. **Connect your repository to Vercel:**
-   - Go to [Vercel](https://vercel.com)
-   - Import your GitHub repository
-   - Vercel will automatically detect the configuration from `vercel.json`
+### Cloudflare Pages (Recommended)
 
-2. **Automatic deployments:**
-   - Every push to the main branch will trigger a new deployment
-   - Preview deployments are created for pull requests
+This project deploys as a static site on Cloudflare Pages:
 
-3. **Environment variables (if needed):**
-   - Add any required environment variables in the Vercel dashboard
-   - Under Project Settings → Environment Variables
+1. **Create a Cloudflare Pages project**
+   - In the [Cloudflare dashboard](https://dash.cloudflare.com), open **Workers & Pages → Create → Pages → Connect to Git**, or create an empty project for direct uploads from GitHub Actions.
+   - Set the production branch to `main`.
 
-4. **Build settings (auto-detected):**
-   - Build Command: `npm run build`
-   - Output Directory: `build`
-   - Install Command: `npm install`
-- Node.js Version: 22.x (or higher)
+2. **Build settings (for Git-connected projects)**
+   - Build command: `npm run build`
+   - Build output directory: `build`
+   - Node.js version: 22.x
 
-The `vercel.json` configuration includes:
-- ✅ Optimized caching headers for static assets
-- ✅ Proper routing for i18n (English & Indonesian)
-- ✅ SPA routing support
-- ✅ Performance optimizations
+3. **Automatic deployments**
+   - Every push to `main` triggers `.github/workflows/cloudflare-pages-deploy.yml`.
+   - The workflow builds English output in `build/` and Indonesian output in `build/id/`.
 
-#### GitHub Actions → Vercel
+4. **Custom domain**
+   - Point `apidocs.mawarpay.com` to the Cloudflare Pages project in **Custom domains**.
 
-Continuous deployment is configured via `.github/workflows/vercel-deploy.yml`. To enable it:
+#### GitHub Actions → Cloudflare Pages
 
-1. In your GitHub repo settings, add the secret:
-   - `VERCEL_TOKEN` – Personal token from Vercel dashboard (Settings → Tokens).
-2. Ensure the `main` branch is connected to Vercel (or adjust the workflow trigger).
-3. Push to `main` (or run the workflow manually via **Run workflow**). The workflow installs dependencies, runs `vercel pull`, `vercel build --prod`, and publishes the prebuilt output with `vercel deploy --prebuilt --prod`.
+Continuous deployment is configured via `.github/workflows/cloudflare-pages-deploy.yml`. Add these repository secrets:
+
+| Secret | Description |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | API token with **Cloudflare Pages — Edit** permission |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID from the dashboard |
+| `CLOUDFLARE_PAGES_PROJECT_NAME` | Pages project name (for example `mawarpay-api-docs`) |
+
+Then push to `main`, or run the workflow manually with **Run workflow**.
 
 ### Google Cloud Run Deployment
 
