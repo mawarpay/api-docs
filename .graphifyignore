@@ -1,0 +1,40 @@
+# graphify ignore — MawarPay API Docs (Docusaurus)
+# gitignore-style patterns; graphify also respects .gitignore by default.
+
+# ==========================================
+# Graphify output (never index the graph)
+# ==========================================
+graphify-out/
+
+# ==========================================
+# Build & generated site artifacts
+# ==========================================
+build/
+.docusaurus/
+.docusaurus-id/
+.cache-loader/
+.wrangler/
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+
+# ==========================================
+# Duplicate documentation corpora
+# Keep docs/ as the canonical English source.
+# ==========================================
+versioned_docs/
+versioned_sidebars/
+i18n/
+
+# ==========================================
+# Agent / editor tooling (not product docs)
+# ==========================================
+.claude/
+.cursor/
+
+# ==========================================
+# Low-signal static assets
+# ==========================================
+static/img/undraw_*.svg
