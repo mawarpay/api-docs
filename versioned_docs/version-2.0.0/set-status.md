@@ -1,6 +1,6 @@
 ---
-id: set-status-v2
-slug: /set-status-v2
+id: set-status-v1
+slug: /set-status-v1
 title: Set transaction status (sandbox)
 description: Sandbox-only API to simulate transaction status transitions for testing. Production is not supported.
 sidebar_position: 10
@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 Use this flow in **sandbox only** to force or simulate a transaction status (for example moving a test QRIS transaction to `completed`) without waiting for real bank or network settlement.
 
 :::warning Sandbox only
-The **Set transaction status** API (`POST /api/v2/transaction-set-status`) is available **only** on the sandbox base URL. It is **not** exposed on production. Do not call this endpoint in live environments.
+The **Set transaction status** API (`POST /api/v1/transaction-set-status`) is available **only** on the sandbox base URL. It is **not** exposed on production. Do not call this endpoint in live environments.
 :::
 
 ## Set transaction status (API)
@@ -24,7 +24,7 @@ The **Set transaction status** API (`POST /api/v2/transaction-set-status`) is av
 | Item | Value (sandbox) |
 |---|---|
 | HTTP method | `POST` |
-| URL | `https://sandbox.mawarpay.com/api/v2/transaction-set-status` |
+| URL | `https://sandbox.mawarpay.com/api/v1/transaction-set-status` |
 | Auth | Yes (`Authorization: Bearer {token}`, `X-API-KEY`) |
 
 ### Request headers
@@ -53,7 +53,7 @@ The **Set transaction status** API (`POST /api/v2/transaction-set-status`) is av
 <TabItem value="curl">
 
 ```bash
-curl --location 'https://sandbox.mawarpay.com/api/v2/transaction-set-status' \
+curl --location 'https://sandbox.mawarpay.com/api/v1/transaction-set-status' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --header 'X-API-KEY: {apiKey}' \
@@ -104,7 +104,7 @@ Create a transaction in sandbox (for example [Create QRIS](/docs/qris-create)), 
 
 ### Available status values
 
-Statuses below can appear from this sandbox API, in [webhooks](/docs/webhooks-v2) payloads, and in `data.status` from **[Check Transaction Status](/docs/transactions/check-status)**. Exact values depend on channel and flow.
+Statuses below can appear from this sandbox API, in [webhooks](/docs/webhooks-v1) payloads, and in `data.status` from **[Check Transaction Status](/docs/transactions/check-status)**. Exact values depend on channel and flow.
 
 | Status code | Category | Description |
 |-------------|----------|-------------|
@@ -125,8 +125,8 @@ Withdrawal-specific processing states (`awaiting_*`) are summarized in **[Create
 
 ## Check transaction status (read)
 
-In **API v2**, programmatic status **lookup** (not mutation) uses **`POST /api/v2/transactions`** with **`Authorization: Bearer {token}`** and **`X-API-KEY`**. Send JSON with `value` (for example your `trxId`) and **`Type`** set to **`TRX_ID`**.
+In **API v1**, programmatic status **lookup** (not mutation) uses **`POST /api/v1/transactions`** with **`Authorization: Bearer {token}`** and **`X-API-KEY`**. Send JSON with `value` (for example your `trxId`) and **`Type`** set to **`TRX_ID`**.
 
 Use the full schema and polling guidance: **[Check Transaction Status](/docs/transactions/check-status)**.
 
-For push-based updates instead of polling, configure **[Webhooks](/docs/webhooks-v2)**.
+For push-based updates instead of polling, configure **[Webhooks](/docs/webhooks-v1)**.

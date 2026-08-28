@@ -1,6 +1,6 @@
 ---
-id: set-status-v2
-slug: /set-status-v2
+id: set-status-v1
+slug: /set-status-v1
 title: Atur status transaksi (sandbox)
 description: API khusus sandbox untuk mensimulasikan perpindahan status transaksi saat testing. Tidak didukung di production.
 sidebar_position: 10
@@ -14,17 +14,17 @@ import TabItem from '@theme/TabItem';
 Gunakan alur ini **hanya di sandbox** untuk memaksa atau mensimulasikan status transaksi (misalnya mengubah transaksi QRIS uji menjadi `completed`) tanpa menunggu settlement bank/jaringan yang sebenarnya.
 
 :::warning Hanya sandbox
-API **Set transaction status** (`POST /api/v2/transaction-set-status`) tersedia **hanya** pada base URL sandbox. Endpoint ini **tidak** tersedia di production. Jangan panggil endpoint ini di environment live.
+API **Set transaction status** (`POST /api/v1/transaction-set-status`) tersedia **hanya** pada base URL sandbox. Endpoint ini **tidak** tersedia di production. Jangan panggil endpoint ini di environment live.
 :::
 
-## Set transaction status (API)
+## Atur status transaksi (API)
 
 ### Endpoint
 
 | Item | Value (sandbox) |
 |---|---|
 | HTTP method | `POST` |
-| URL | `https://sandbox.mawarpay.com/api/v2/transaction-set-status` |
+| URL | `https://sandbox.mawarpay.com/api/v1/transaction-set-status` |
 | Auth | Yes (`Authorization: Bearer {token}`, `X-API-KEY`) |
 
 ### Request headers
@@ -41,7 +41,7 @@ API **Set transaction status** (`POST /api/v2/transaction-set-status`) tersedia 
 | Field | Type | Required | Description |
 |---|---|---|---|
 | `trxId` | string | Yes | Transaction ID yang akan diupdate (misalnya `trxId` yang dikembalikan saat membuat QRIS, VA, atau alur lainnya) |
-| `status` | string | Yes | Nilai status tujuan (lihat [Available status values](#available-status-values)) |
+| `status` | string | Yes | Nilai status tujuan (lihat [Nilai status yang tersedia](#nilai-status-yang-tersedia)) |
 
 ### Contoh kode
 
@@ -52,7 +52,7 @@ API **Set transaction status** (`POST /api/v2/transaction-set-status`) tersedia 
 <TabItem value="curl">
 
 ```bash
-curl --location 'https://sandbox.mawarpay.com/api/v2/transaction-set-status' \
+curl --location 'https://sandbox.mawarpay.com/api/v1/transaction-set-status' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --header 'X-API-KEY: {apiKey}' \
@@ -95,11 +95,11 @@ Buat transaksi di sandbox (misalnya [Create QRIS](/docs/qris-create)), salin `da
 | `data.trxId` | string | Identifier transaksi |
 | `data.updatedAt` | string | Waktu status diupdate (ISO 8601) |
 
-### Available status values
+### Nilai status yang tersedia
 
-Status di bawah dapat muncul dari API sandbox ini, pada payload [webhooks](/docs/webhooks-v2), dan pada `data.status` dari **[Check Transaction Status](/docs/transactions/check-status)**. Nilai yang tepat bergantung pada channel dan flow.
+Status di bawah dapat muncul dari API sandbox ini, pada payload [webhooks](/docs/webhooks-v1), dan pada `data.status` dari **[Check Transaction Status](/docs/transactions/check-status)**. Nilai yang tepat bergantung pada channel dan flow.
 
-| Status code | Category | Description |
+| Status code | Kategori | Keterangan |
 |-------------|----------|-------------|
 | `pending` | `receive_payment`, `withdraw` | Menunggu aksi pembayar atau pemrosesan awal |
 | `awaiting_fi_process` | `withdraw` | Menunggu pemrosesan oleh institusi keuangan |
@@ -116,10 +116,10 @@ Withdrawal-specific processing states (`awaiting_*`) dirangkum di **[Create With
 
 ---
 
-## Check transaction status (read)
+## Cek status transaksi (baca)
 
-Di **API v2**, lookup status secara programatis (bukan mengubah status) menggunakan **`POST /api/v2/transactions`** dengan **`Authorization: Bearer {token}`** dan **`X-API-KEY`**. Kirim JSON dengan `value` (misalnya `trxId`) dan set **`Type`** ke **`TRX_ID`**.
+Di **API v1**, lookup status secara programatis (bukan mengubah status) menggunakan **`POST /api/v1/transactions`** dengan **`Authorization: Bearer {token}`** dan **`X-API-KEY`**. Kirim JSON dengan `value` (misalnya `trxId`) dan set **`Type`** ke **`TRX_ID`**.
 
 Gunakan skema lengkap dan panduan polling: **[Check Transaction Status](/docs/transactions/check-status)**.
 
-Untuk pembaruan push (tanpa polling), konfigurasi **[Webhooks](/docs/webhooks-v2)**.
+Untuk pembaruan push (tanpa polling), konfigurasi **[Webhooks](/docs/webhooks-v1)**.

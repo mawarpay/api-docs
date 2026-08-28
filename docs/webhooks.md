@@ -1,22 +1,40 @@
 ---
 id: webhooks
-title: Webhooks
-sidebar_position: 5
+slug: /webhooks-v1
+title: Webhook Settings
+description: Configure webhook delivery, signatures, retries, and payload handling for API v1 transaction updates.
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Webhooks
+# Webhook Settings
 
-Mawarpay sends real-time notifications to your specified IPN URL when payment status changes. This ensures you're immediately notified of payment completions, failures, and other status updates.
+MawarPay sends real-time notifications to your webhook endpoint when payment or withdrawal status changes. Configure the endpoint on the merchant detail page, then verify each payload with the webhook secret.
 
-Configure your webhook endpoint to receive instant payment notifications. The webhook configuration interface allows you to set up your endpoint URL, enable or disable webhooks, verify SSL certificates, and test your webhook integration.
+Create your `X-API-KEY` first in [API Keys](/docs/settings/api-keys), then open the **Webhook Settings** tab on the same merchant.
 
-![Webhook Configuration Interface](/img/webhook.png)
+![Webhook Settings in Merchant Detail](/img/webhook-v2.png)
 
-> **Reliable Delivery**  
-> Ilopay implements retry logic for failed webhook deliveries. We'll retry up to 5 times with exponential backoff.
+## Dashboard settings
+
+On **Merchants → Merchant Detail → Webhook Settings**:
+
+| Setting | What to do |
+|---|---|
+| Webhook endpoint URL | HTTPS URL that receives transaction events. The dashboard marks a valid URL. |
+| Enable webhook | Turn on to send events. Turn off to pause all deliveries. |
+| Verify SSL | Keep on for production HTTPS. Disable only for local development with self-signed certificates. |
+| Webhook secret | Use **Reveal**, **Copy**, or **Regenerate**. Signatures use this secret. |
+| Save Settings | Persist endpoint, toggles, and secret. |
+| Send Test Webhook | Send a sample event so you can confirm your handler before going live. |
+
+Store the webhook secret in server-side config (not in the browser). Use it in [Signature Verification](#signature-verification).
+
+:::note Reliable Delivery
+MawarPay retries failed webhook deliveries up to 5 times using exponential backoff.
+:::
 
 ---
 
@@ -32,37 +50,70 @@ Configure your webhook endpoint to receive instant payment notifications. The we
 ## Payload Webhook
 
 <Tabs
-  defaultValue="receive-payment"
+  defaultValue="receive-payment-qris"
   values={[
-    {label: 'Status Pembayaran', value: 'receive-payment'},
+    {label: 'Status Pembayaran QRIS', value: 'receive-payment-qris'},
+    {label: 'Status Pembayaran Virtual Account', value: 'receive-payment-virtual-account'},
     {label: 'Status Penarikan Dana', value: 'withdraw'},
   ]}
 >
 
-<TabItem value="receive-payment">
+<TabItem value="receive-payment-qris">
 
-Example payload for an updated payment status:
+Example payload for an updated QRIS payment status:
 
 ```json
 {
-  "event": "receive_payment",
+  "event": "receivePayment",
   "data": {
-    "trx_id": "TRXJ0LFYU8CAT",
-    "trx_reference": "37c84bdb-e6b7-4893-9b02-e4931d90cdce",
+    "trxId": "TRXJ0LFYU8CAT",
+    "trxReference": "37c84bdb-e6b7-4893-9b02-e4931d90cdce",
     "rrn": "fb96da8d931c",
     "amount": "1000.00",
-    "currency_code": "IDR",
+    "currencyCode": "IDR",
     "description": "Receive Payment from QRIS",
-    "customer_name": "John Doe",
-    "customer_email": "john@doe.com",
-    "customer_phone": "62323232222",
-    "merchant_id": 1,
-    "merchant_name": "Demo Brand",
-    "payment_method": "QRIS"
+    "customerName": "John Doe",
+    "customerEmail": "john@doe.com",
+    "customerPhone": "62323232222",
+    "merchantId": 1,
+    "merchantName": "Demo Brand",
+    "paymentMethod": "QRIS"
   },
   "message": "Receive Payment via QRIS",
   "status": "completed",
   "timestamp": 1762927877
+}
+```
+</TabItem>
+
+
+
+<TabItem value="receive-payment-virtual-account">
+
+
+
+Example payload for an updated Virtual Account payment status:
+
+```json
+{
+  "event": "receiveVirtualAccountPayment",
+  "data": {
+    "trxId": "TRXVA39CVH0SOFGDK808XIIQ8",
+    "trxReference": "57c4db72-96d0-4442-a2cb-25be291a409e",
+    "vaCode": "9999992006674170",
+    "amount": "10000.00",
+    "currencyCode": "IDR",
+    "description": "Virtual Account",
+    "customerName": "",
+    "customerEmail": "",
+    "customerPhone": "",
+    "merchantId": 3,
+    "merchantName": "Demo Brand Baru",
+    "paymentMethod": "VIRTUAL_ACCOUNT"
+  },
+  "message": "Receive Virtual Account payment via Demo Brand Baru",
+  "status": "expired",
+  "timestamp": 1778697331
 }
 ```
 
@@ -76,26 +127,26 @@ Example payload for withdrawal status:
 {
   "event": "withdraw",
   "data": {
-    "trx_id": "TRX-2025.11.14-1-BDH2JD8NNY170XO",
-    "trx_reference": "95a190c6-ee73-488b-a386-382310f2d0c1",
+    "trxId": "TRX-2025.11.14-1-BDH2JD8NNY170XO",
+    "trxReference": "95a190c6-ee73-488b-a386-382310f2d0c1",
     "amount": 50000,
-    "net_amount": 50000,
-    "payable_amount": 54000,
-    "currency_code": "IDR",
+    "netAmount": 50000,
+    "payableAmount": 54000,
+    "currencyCode": "IDR",
     "status": "completed",
     "description": "Withdrawal request is completed by Bank Partner",
-    "merchant_id": 1,
-    "merchant_name": "Demo Brand",
-    "withdrawal_method": "Bank Transfer",
-    "account_name": "John Doe",
-    "account_holder_name": "John Doe",
-    "account_bank_name": "John Doe",
-    "account_number": "123456789",
-    "account_bank_code": "01",
-    "trx_fee": 2000,
+    "merchantId": 1,
+    "merchantName": "Demo Brand",
+    "withdrawalMethod": "Bank Transfer",
+    "accountName": "John Doe",
+    "accountHolderName": "John Doe",
+    "accountBankName": "John Doe",
+    "accountNumber": "123456789",
+    "accountBankCode": "01",
+    "trxFee": 2000,
     "remarks": "Withdrawal request is completed by Financial Institution",
     "environment": "production",
-    "is_sandbox": false
+    "isSandbox": false
   },
   "message": "Withdrawal request is completed by Financial Institution",
   "timestamp": 1763101871

@@ -1,249 +1,132 @@
 ---
-id: set-status
-title: Payment Status Management
-sidebar_position: 8
+id: set-status-v1
+slug: /set-status-v1
+title: Set transaction status (sandbox)
+description: Sandbox-only API to simulate transaction status transitions for testing. Production is not supported.
+sidebar_position: 10
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Payment Status Management
+## Overview
 
-> ⚠️ **Sandbox Only**  
-> This feature is only available in sandbox/testing environments for development and testing purposes.
+Use this flow in **sandbox only** to force or simulate a transaction status (for example moving a test QRIS transaction to `completed`) without waiting for real bank or network settlement.
 
-**Access the payment status management interface** via this [endpoint](https://sandbox.mawarpay.com/payment/set-status).
+:::warning Sandbox only
+The **Set transaction status** API (`POST /api/v1/transaction-set-status`) is available **only** on the sandbox base URL. It is **not** exposed on production. Do not call this endpoint in live environments.
+:::
 
-![Payment Status Management](/img/set-status-payment.png)
+## Set transaction status (API)
 
-### Available Payment Status
+### Endpoint
 
-| Status Code               | Category                        | Status Description                                       |
-|---------------------------|----------------------------------|----------------------------------------------------------|
-| `pending`                 | `receive_payment`    | Transaction awaiting payment confirmation                |
-| `awaiting_fi_process`     |  `withdraw`    | Awaiting processing by the financial institution         |
-| `awaiting_pg_process`     |  `withdraw`    | Queued at the payment gateway for further processing     |
-| `awaiting_user_action`    |  `withdraw`    | Merchant/customer must perform an action to proceed      |
-| `awaiting_admin_approval` |  `withdraw`    | Waiting for manual approval from an administrator        |
-| `completed`               | `receive_payment`, `withdraw`    | Payment process successfully finalized                   |
-| `canceled`                | `receive_payment`, `withdraw`    | Payment process canceled by user or system               |
-| `failed`                  | `receive_payment`, `withdraw`    | Payment process terminated due to error                  |
-| `refunded`                |  `withdraw`    | Funds returned to the payer after completion             |
-| `expired`                 | `receive_payment`, `withdraw`    | Payment session exceeded time limit and can’t continue   |
+| Item | Value (sandbox) |
+|---|---|
+| HTTP method | `POST` |
+| URL | `https://sandbox.mawarpay.com/api/v1/transaction-set-status` |
+| Auth | Yes (`Authorization: Bearer {token}`, `X-API-KEY`) |
 
+### Request headers
 
+| Header | Value | Required |
+|---|---|---|
+| `Accept` | `application/json` | Yes |
+| `Content-Type` | `application/json` | Yes |
+| `X-API-KEY` | `{apiKey}` | Yes |
+| `Authorization` | `Bearer {token}` | Yes |
 
----
+### Request body
 
-## Check Transaction Status API
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `trxId` | string | Yes | Transaction ID to update (for example the `trxId` returned when creating QRIS, VA, or other flows) |
+| `field` | string | Yes | Lookup type for the transaction identifier. Allowed values: `TRX_REFERENCE`, `REFERENCE_NUMBER`, `TRX_ID` |
+| `status` | string | Yes | Target status value (see [Available status values](#available-status-values)) |
 
-Use this endpoint to retrieve the current status of a transaction. This API allows you to query transaction details and status in real-time.
+### Code example
 
-**Endpoint:**  
-`GET /api/v1/check-status/{trxId}`
-
-### Request Headers
-
-| Header            | Value                | Required | Description                         |
-|-------------------|---------------------|:--------:|-------------------------------------|
-| `Accept`          | `application/json`   | ✅       | Specifies the response format. |
-| `X-MERCHANT-KEY`  | `{merchant_key}`     | ✅       | Your Merchant ID.        |
-| `X-API-KEY`       | `{api_key}`          | ✅       | Your API Key.            |
-
-### Path Parameters
-
-| Parameter | Type   | Required | Description                        |
-|-----------|--------|:--------:|------------------------------------|
-| `trxId`   | string | ✅       | Unique transaction identifier |
-
-### Code Examples
-
-<Tabs groupId="status-language" defaultValue="curl" values={[
-    { label: 'cURL', value: 'curl' },
-    { label: 'PHP (Laravel)', value: 'php' },
-    { label: 'Node.js', value: 'node' },
-    { label: 'Python', value: 'python' },
+<Tabs groupId="set-status-examples" defaultValue="curl" values={[
+  { label: 'cURL', value: 'curl' },
 ]}>
 
 <TabItem value="curl">
 
 ```bash
-curl -X GET "/api/v1/check-status/TRX123456789" \
-  -H "Accept: application/json" \
-  -H "X-MERCHANT-KEY: merchant_key" \
-  -H "X-API-KEY: api_key"
-```
-
-</TabItem>
-
-<TabItem value="php">
-
-```php
-<?php
-
-use Illuminate\Support\Facades\Http;
-
-$baseUrl = '/api/v1';
-$merchantKey = 'merchant_key';
-$apiKey = 'api_key';
-$trxId = 'TRX123456789';
-
-$response = Http::timeout(60)->withHeaders([
-    'Accept' => 'application/json',
-    'X-MERCHANT-KEY' => $merchantKey,
-    'X-API-KEY' => $apiKey,
-])->get("{$baseUrl}/check-status/{$trxId}");
-
-if ($response->successful()) {
-    $result = $response->json();
-    echo "Status: " . $result['status'] . PHP_EOL;
-    echo "Message: " . $result['message'] . PHP_EOL;
-} else {
-    $error = $response->json();
-    echo "Error: " . $error['message'];
-}
-```
-
-</TabItem>
-
-<TabItem value="node">
-
-```javascript
-const axios = require('axios');
-
-const baseUrl = '/api/v1';
-const merchantKey = 'merchant_key';
-const apiKey = 'api_key';
-const trxId = 'TRX123456789';
-
-axios
-  .get(`${baseUrl}/check-status/${trxId}`, {
-    headers: {
-      Accept: 'application/json',
-      'X-MERCHANT-KEY': merchantKey,
-      'X-API-KEY': apiKey,
-    },
-  })
-  .then((response) => {
-    console.log('Status:', response.data.status);
-    console.log('Message:', response.data.message);
-  })
-  .catch((error) => {
-    if (error.response) {
-      console.error('Error:', error.response.data.message);
-    } else {
-      console.error('Error:', error.message);
-    }
-  });
-```
-
-</TabItem>
-
-<TabItem value="python">
-
-```python
-import requests
-
-base_url = '/api/v1'
-merchant_key = 'merchant_key'
-api_key = 'api_key'
-trx_id = 'TRX123456789'
-
-headers = {
-    'Accept': 'application/json',
-    'X-MERCHANT-KEY': merchant_key,
-    'X-API-KEY': api_key,
-}
-
-response = requests.get(f"{base_url}/check-status/{trx_id}", headers=headers)
-
-if response.status_code == 200:
-    result = response.json()
-    print(f"Status: {result['status']}")
-    print(f"Message: {result['message']}")
-else:
-    error = response.json()
-    print(f"Error: {error['message']}")
+curl --location 'https://sandbox.mawarpay.com/api/v1/transaction-set-status' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --header 'X-API-KEY: {apiKey}' \
+  --header 'Authorization: Bearer {token}' \
+  --data '{
+  "trxId": "TRXQRIS3B2XHYDVK7OMRSSSSI",
+  "field": "TRX_ID",
+  "status": "completed"
+}'
 ```
 
 </TabItem>
 
 </Tabs>
 
----
+:::tip Testing flow
+Create a transaction in sandbox (for example [Create QRIS](/docs/qris-create)), copy `data.trxId` from the response, then call this endpoint with the desired `status` to exercise webhooks or [Check Transaction Status](/docs/transactions/check-status) polling.
+:::
 
-<Tabs groupId="status-response" defaultValue="success" values={[
-    { label: 'Success', value: 'success' },
-    { label: 'Pending', value: 'pending' },
-    { label: '404 Not Found', value: 'not-found' },
-    { label: '500 Internal Server Error', value: 'server-error' },
-]}>
+### Response
 
-<TabItem value="success">
+#### Success (`200 OK`)
 
 ```json
 {
-    "status": "completed",
-    "message": "receive_payment, request status checked successfully.",
+    "code": 2000203,
+    "message": "Transaction status updated",
     "data": {
-        "trx_id": "TRX-2025.11.18-CBBTFMQ8CI",
-        "trx_reference": "1e3ff45c-3fab-4894-a2b0-2cf0180a8234",
-        "rrn": "9889cdc74976",
-        "amount": 1000,
-        "currency_code": null,
-        "status": "completed"
+        "methodType": "EWALLET",
+        "netAmount": 8000,
+        "referenceNumber": "800335438829",
+        "status": "completed",
+        "trxId": "TRXWITH3HRQ4JJEH94ZFJJW6Y",
+        "trxReference": "d834b31b-fe6e-4157-b11c-7f925b7fe66f",
+        "trxType": "withdraw",
+        "updatedAt": "2026-05-29T05:45:43.882Z"
     }
 }
 ```
 
-</TabItem>
+| Field | Type | Description |
+|---|---|---|
+| `code` | number | Application response code |
+| `message` | string | Result message |
+| `data.status` | string | Status after the update (matches the `status` you sent when accepted) |
+| `data.trxId` | string | Transaction identifier |
+| `data.updatedAt` | string | Time the status was updated (ISO 8601) |
 
-<TabItem value="pending">
+### Available status values
 
-```json
-{
-    "status": "pending",
-    "message": "receive_payment, request status checked successfully.",
-    "data": {
-        "trx_id": "TRX-2025.11.19-XXEAJ4MTLW",
-        "trx_reference": "39bb5912-135a-421a-b947-33a0f0754ee9",
-        "rrn": null,
-        "amount": 1000,
-        "currency_code": null,
-        "status": "pending"
-    }
-}
-```
+Statuses below can appear from this sandbox API, in [webhooks](/docs/webhooks-v1) payloads, and in `data.status` from **[Check Transaction Status](/docs/transactions/check-status)**. Exact values depend on channel and flow.
 
-</TabItem>
+| Status code | Category | Description |
+|-------------|----------|-------------|
+| `pending` | `receive_payment`, `withdraw` | Awaiting payer action or initial processing |
+| `awaiting_fi_process` | `withdraw` | Awaiting processing by the financial institution |
+| `awaiting_pg_process` | `withdraw` | Queued at the payment gateway |
+| `awaiting_user_action` | `withdraw` | Merchant or customer action required |
+| `awaiting_admin_approval` | `withdraw` | Waiting for administrator approval |
+| `completed` | `receive_payment`, `withdraw` | Flow successfully finalized (also common in webhook payloads for pay-ins) |
+| `canceled` | `receive_payment`, `withdraw` | Canceled by user or system |
+| `failed` | `receive_payment`, `withdraw` | Terminated with an error |
+| `refunded` | `withdraw` | Funds returned after completion or reversal |
+| `expired` | `receive_payment`, `withdraw` | Pay-in session or validity window elapsed |
 
-<TabItem value="not-found">
-
-```json
-{
-    "success": false,
-    "message": "Transaction not found."
-}
-```
-
-</TabItem>
-
-<TabItem value="server-error">
-
-```json
-{
-    "success": false,
-    "message": "Failed to check transaction status.",
-    "error": "Error details here"
-}
-```
-
-</TabItem>
-
-</Tabs>
+Withdrawal-specific processing states (`awaiting_*`) are summarized in **[Create Withdrawal](/docs/withdraw#available-withdraw-status)** alongside a payout-focused lifecycle diagram.
 
 ---
 
-> ℹ️ **Note:** The status message will include the transaction type (e.g., "Payment, request status checked successfully" or "Withdrawal, request status checked successfully").
+## Check transaction status (read)
 
+In **API v1**, programmatic status **lookup** (not mutation) uses **`POST /api/v1/transactions`** with **`Authorization: Bearer {token}`** and **`X-API-KEY`**. Send JSON with `value` (for example your `trxId`) and **`Type`** set to **`TRX_ID`**.
 
+Use the full schema and polling guidance: **[Check Transaction Status](/docs/transactions/check-status)**.
+
+For push-based updates instead of polling, configure **[Webhooks](/docs/webhooks-v1)**.

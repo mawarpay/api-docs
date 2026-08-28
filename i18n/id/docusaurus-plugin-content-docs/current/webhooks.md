@@ -1,33 +1,49 @@
 ---
 id: webhooks
-title: Webhook
-sidebar_position: 5
+slug: /webhooks-v1
+title: Webhook Settings
+description: Konfigurasi pengiriman webhook, signature, retry, dan penanganan payload untuk pembaruan transaksi API v1.
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Webhook (IPN)
+# Webhook Settings
 
-MawarPay mengirim notifikasi real-time ke URL IPN yang Anda tentukan ketika status pembayaran berubah. Dengan demikian Anda dapat segera mengetahui pembayaran yang berhasil, gagal, atau status lainnya.
+MawarPay mengirim notifikasi real-time ke endpoint webhook Anda ketika status pembayaran atau penarikan berubah. Atur endpoint di halaman detail merchant, lalu verifikasi setiap payload dengan webhook secret.
 
-Konfigurasikan endpoint webhook Anda untuk menerima notifikasi pembayaran secara instan. Antarmuka konfigurasi webhook memungkinkan Anda mengatur URL endpoint, mengaktifkan atau menonaktifkan webhook, memverifikasi sertifikat SSL, dan menguji integrasi webhook Anda.
+Buat `X-API-KEY` terlebih dahulu di [API Keys](/docs/settings/api-keys), lalu buka tab **Webhook Settings** pada merchant yang sama.
 
-![Antarmuka Konfigurasi Webhook](/img/webhook.png)
+![Webhook Settings di Detail Merchant](/img/webhook-v2.png)
 
-> **Pengiriman Andal**  
-> MawarPay menerapkan logika retry pada pengiriman webhook yang gagal. Sistem akan mencoba ulang hingga 5 kali dengan pola eksponensial.
+## Pengaturan dashboard
+
+Pada **Merchants → Merchant Detail → Webhook Settings**:
+
+| Pengaturan | Yang dilakukan |
+|---|---|
+| Webhook endpoint URL | URL HTTPS yang menerima event transaksi. Dashboard menandai URL yang valid. |
+| Enable webhook | Hidupkan untuk mengirim event. Matikan untuk menjeda semua pengiriman. |
+| Verify SSL | Biarkan aktif untuk HTTPS production. Matikan hanya untuk development lokal dengan sertifikat self-signed. |
+| Webhook secret | Gunakan **Reveal**, **Copy**, atau **Regenerate**. Signature memakai secret ini. |
+| Save Settings | Simpan endpoint, toggle, dan secret. |
+| Send Test Webhook | Kirim event contoh agar handler Anda teruji sebelum live. |
+
+Simpan webhook secret di konfigurasi server (bukan di browser). Gunakan pada [Verifikasi Signature](#verifikasi-signature).
+
+:::note Pengiriman Andal
+MawarPay melakukan retry pengiriman webhook yang gagal hingga 5 kali menggunakan exponential backoff.
+:::
 
 ---
 
 ## Header Webhook
 
-| Header      | Deskripsi                       | Contoh        |
+| Header      | Keterangan                       | Contoh        |
 |------------------------|-----------------------------------------------|---------------------------|
 | `Content-Type`         | Selalu `application/json`          | `application/json`        |
 | `x-signature`          | Signature HMAC-SHA256 untuk verifikasi | `a8b9c2d1e5f3...`         |
-
-Gunakan header di atas untuk memverifikasi bahwa webhook berasal dari MawarPay dan belum diubah selama proses pengiriman.
 
 ---
 
@@ -43,24 +59,24 @@ Gunakan header di atas untuk memverifikasi bahwa webhook berasal dari MawarPay d
 
 <TabItem value="receive-payment">
 
-Contoh payload untuk status pembayaran yang diperbarui:
+Contoh payload untuk pembaruan status pembayaran:
 
 ```json
 {
-  "event": "receive_payment",
+  "event": "receivePayment",
   "data": {
-    "trx_id": "TRXJ0LFYU8CAT",
-    "trx_reference": "37c84bdb-e6b7-4893-9b02-e4931d90cdce",
+    "trxId": "TRXJ0LFYU8CAT",
+    "trxReference": "37c84bdb-e6b7-4893-9b02-e4931d90cdce",
     "rrn": "fb96da8d931c",
     "amount": "1000.00",
-    "currency_code": "IDR",
+    "currencyCode": "IDR",
     "description": "Receive Payment from QRIS",
-    "customer_name": "John Doe",
-    "customer_email": "john@doe.com",
-    "customer_phone": "62323232222",
-    "merchant_id": 1,
-    "merchant_name": "Demo Brand",
-    "payment_method": "QRIS"
+    "customerName": "John Doe",
+    "customerEmail": "john@doe.com",
+    "customerPhone": "62323232222",
+    "merchantId": 1,
+    "merchantName": "Demo Brand",
+    "paymentMethod": "QRIS"
   },
   "message": "Receive Payment via QRIS",
   "status": "completed",
@@ -78,26 +94,26 @@ Contoh payload untuk status penarikan dana:
 {
   "event": "withdraw",
   "data": {
-    "trx_id": "TRX-2025.11.14-1-BDH2JD8NNY170XO",
-    "trx_reference": "95a190c6-ee73-488b-a386-382310f2d0c1",
+    "trxId": "TRX-2025.11.14-1-BDH2JD8NNY170XO",
+    "trxReference": "95a190c6-ee73-488b-a386-382310f2d0c1",
     "amount": 50000,
-    "net_amount": 50000,
-    "payable_amount": 54000,
-    "currency_code": "IDR",
+    "netAmount": 50000,
+    "payableAmount": 54000,
+    "currencyCode": "IDR",
     "status": "completed",
     "description": "Withdrawal request is completed by Bank Partner",
-    "merchant_id": 1,
-    "merchant_name": "Demo Brand",
-    "withdrawal_method": "Bank Transfer",
-    "account_name": "John Doe",
-    "account_holder_name": "John Doe",
-    "account_bank_name": "John Doe",
-    "account_number": "123456789",
-    "account_bank_code": "01",
-    "trx_fee": 2000,
+    "merchantId": 1,
+    "merchantName": "Demo Brand",
+    "withdrawalMethod": "Bank Transfer",
+    "accountName": "John Doe",
+    "accountHolderName": "John Doe",
+    "accountBankName": "John Doe",
+    "accountNumber": "123456789",
+    "accountBankCode": "01",
+    "trxFee": 2000,
     "remarks": "Withdrawal request is completed by Financial Institution",
     "environment": "production",
-    "is_sandbox": false
+    "isSandbox": false
   },
   "message": "Withdrawal request is completed by Financial Institution",
   "timestamp": 1763101871
@@ -108,199 +124,177 @@ Contoh payload untuk status penarikan dana:
 
 </Tabs>
 
-### Field Penting
-
-| Field | Deskripsi |
-|-------|-----------|
-| `event` | Jenis event webhook. Contoh: `payment.updated`. |
-| `timestamp` | Waktu pengiriman dalam detik UNIX. |
-| `data.trx_id` | ID transaksi internal MawarPay. |
-| `data.ref_trx` | Referensi transaksi merchant (jika ada). |
-| `data.status` | Status terkini transaksi. |
-| `data.amount` | Jumlah transaksi dalam satuan terkecil mata uang. |
-| `data.currency_code` | Kode mata uang ISO 4217. |
-| `data.customer` | Informasi pelanggan (opsional). |
-
 ---
 
-## Status Webhook
+## Verifikasi Signature
 
-| Event | Deskripsi |
-|--------|-----------|
-| `payment.created` | Transaksi baru dibuat. |
-| `payment.pending` | Transaksi menunggu konfirmasi pembayaran. |
-| `payment.completed` | Pembayaran berhasil diproses. |
-| `payment.failed` | Pembayaran gagal. |
-| `payment.canceled` | Pembayaran dibatalkan. |
-| `payment.refunded` | Pembayaran dikembalikan. |
+Selalu verifikasi signature webhook untuk memastikan autentisitas dan mencegah request yang tidak sah. Gunakan API secret (spesifik per environment) untuk memverifikasi signature.
 
----
+<Tabs groupId="webhook-language" defaultValue="php" values={[
+    { label: 'PHP (Laravel)', value: 'php' },
+    { label: 'Node.js', value: 'node' },
+    { label: 'Python (Django)', value: 'python' },
+]}>
 
-## Verifikasi Webhook
+<TabItem value="php">
 
-Langkah-langkah memverifikasi payload webhook:
+```php
+<?php
+// Laravel Webhook Handler
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-1. Baca header `X-IPN-SIGNATURE` dan `X-IPN-TIMESTAMP`.
-2. Ambil secret webhook dari dasbor merchant Anda.
-3. Bentuk string: `timestamp + '.' + body`.
-4. Hitung HMAC-SHA256 menggunakan secret webhook Anda.
-5. Bandingkan hasilnya dengan `X-IPN-SIGNATURE` (gunakan perbandingan waktu konstan).
+class PaymentGatewayWebhookController extends Controller
+{
+    public function handle(Request $request): JsonResponse
+    {
+        $signature = $request->header('x-signature');
+        $secret = config('payment_gateway.webhook_secret');
 
-### Contoh Verifikasi
+        if (!$this->verifySignature($request->getContent(), $signature, $secret)) {
+            Log::warning('Webhook signature verification failed');
+            return response()->json(['error' => 'Invalid signature'], 401);
+        }
 
-<Tabs
-  defaultValue="node-verify"
-  values={[
-    {label: 'Node.js', value: 'node-verify'},
-    {label: 'Python', value: 'python-verify'},
-    {label: 'PHP', value: 'php-verify'},
-  ]}
->
+        $payload = $request->json()->all();
+        return $this->handleWebhook($payload);
+    }
 
-<TabItem value="node-verify">
+    private function verifySignature(string $payload, ?string $signature, string $secret): bool
+    {
+        if (empty($signature)) {
+            return false;
+        }
 
-```javascript
-const crypto = require('crypto');
+        $expectedSignature = hash_hmac('sha256', $payload, $secret);
+        return hash_equals($expectedSignature, $signature);
+    }
 
-function verifySignature({signature, timestamp, body, secret}) {
-  const payload = `${timestamp}.${body}`;
-  const expectedSignature = crypto
-    .createHmac('sha256', secret)
-    .update(payload)
-    .digest('hex');
+    private function handleWebhook(array $payload): JsonResponse
+    {
+        Log::info('Processing webhook', $payload);
 
-  return crypto.timingSafeEqual(
-    Buffer.from(expectedSignature, 'hex'),
-    Buffer.from(signature, 'hex')
-  );
+        // Your logic here
+        // Fulfill orders, send confirmation emails, etc.
+
+        return response()->json(['status' => 'processed']);
+    }
 }
 ```
 
 </TabItem>
 
-<TabItem value="python-verify">
+<TabItem value="node">
+
+```javascript
+const crypto = require('crypto');
+const express = require('express');
+
+const app = express();
+app.use(express.json());
+
+app.post('/api/webhooks', async (req, res) => {
+    const signature = req.headers['x-signature'];
+    const secret = process.env.WEBHOOK_SECRET;
+
+    if (!verifySignature(JSON.stringify(req.body), signature, secret)) {
+        console.warn('Webhook signature verification failed');
+        return res.status(401).json({ error: 'Invalid signature' });
+    }
+
+    const payload = req.body;
+
+    try {
+        await handleWebhook(payload);
+        res.json({ status: 'processed' });
+    } catch (error) {
+        console.error('Webhook processing error:', error);
+        res.status(500).json({ error: 'Processing failed' });
+    }
+});
+
+function verifySignature(payload, signature, secret) {
+    if (!signature || !secret) {
+        return false;
+    }
+
+    const expectedSignature = 'sha256=' + crypto
+        .createHmac('sha256', secret)
+        .update(payload)
+        .digest('hex');
+
+    return crypto.timingSafeEqual(
+        Buffer.from(expectedSignature),
+        Buffer.from(signature)
+    );
+}
+
+async function handleWebhook(payload) {
+    console.log('Processing webhook:', payload);
+
+    // Your logic here
+    // Fulfill orders, send confirmation emails, etc.
+}
+```
+
+</TabItem>
+
+<TabItem value="python">
 
 ```python
 import hmac
 import hashlib
+import json
+import logging
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
+logger = logging.getLogger(__name__)
 
-def verify_signature(signature: str, timestamp: str, body: str, secret: str) -> bool:
-    payload = f"{timestamp}.{body}".encode("utf-8")
-    expected_signature = hmac.new(
-        secret.encode("utf-8"),
+@csrf_exempt
+@require_http_methods(["POST"])
+def webhook(request):
+    signature = request.headers.get('x-signature', '')
+    secret = get_secret_key()
+
+    if not verify_signature(request.body, signature, secret):
+        logger.warning('Webhook signature verification failed')
+        return JsonResponse({'error': 'Invalid signature'}, status=401)
+
+    try:
+        payload = json.loads(request.body)
+        handle_webhook(payload)
+        return JsonResponse({'status': 'processed'})
+
+    except Exception as exc:
+        logger.error('Webhook processing error: %s', exc)
+        return JsonResponse({'error': 'Processing failed'}, status=500)
+
+def get_secret_key():
+    from django.conf import settings
+    return settings.WEBHOOK_SECRET
+
+def verify_signature(payload, signature, secret):
+    if not signature or not secret:
+        return False
+
+    expected_signature = 'sha256=' + hmac.new(
+        secret.encode('utf-8'),
         payload,
         hashlib.sha256
     ).hexdigest()
 
     return hmac.compare_digest(expected_signature, signature)
-```
 
-</TabItem>
+def handle_webhook(payload):
+    logger.info('Processing webhook', extra={'payload': payload})
 
-<TabItem value="php-verify">
-
-```php
-<?php
-
-function verifySignature(string $signature, string $timestamp, string $body, string $secret): bool
-{
-    $payload = $timestamp . '.' . $body;
-    $expectedSignature = hash_hmac('sha256', $payload, $secret);
-
-    return hash_equals($expectedSignature, $signature);
-}
+    # Your logic here
+    # Fulfill orders, send confirmation emails, etc.
 ```
 
 </TabItem>
 
 </Tabs>
-
----
-
-## Menangani Webhook
-
-Berikut pola dasar untuk menangani webhook di server Anda:
-
-1. Periksa method HTTP (MawarPay menggunakan POST).
-2. Baca header `X-IPN-SIGNATURE` dan `X-IPN-TIMESTAMP`.
-3. Baca body mentah permintaan.
-4. Verifikasi signature menggunakan secret webhook.
-5. Parsing payload JSON.
-6. Perbarui status transaksi di sistem Anda.
-7. Kembalikan respons `200 OK` agar MawarPay tahu webhook berhasil diterima.
-
-> **Catatan**: Selalu balas dalam waktu kurang dari 5 detik. Jika lebih lama, webhook akan diulang.
-
-### Contoh Handler Express.js
-
-```javascript
-const express = require('express');
-const bodyParser = require('body-parser');
-const crypto = require('crypto');
-
-const app = express();
-app.use(bodyParser.json({verify: rawBodySaver}));
-
-const WEBHOOK_SECRET = process.env.MAWAR_WEBHOOK_SECRET;
-
-function rawBodySaver(req, res, buf) {
-  req.rawBody = buf.toString();
-}
-
-app.post('/webhook', (req, res) => {
-  const signature = req.header('X-IPN-SIGNATURE');
-  const timestamp = req.header('X-IPN-TIMESTAMP');
-
-  if (!signature || !timestamp) {
-    return res.status(400).send('Missing headers');
-  }
-
-  const payload = `${timestamp}.${req.rawBody}`;
-  const expectedSignature = crypto
-    .createHmac('sha256', WEBHOOK_SECRET)
-    .update(payload)
-    .digest('hex');
-
-  const isValid = crypto.timingSafeEqual(
-    Buffer.from(expectedSignature, 'hex'),
-    Buffer.from(signature, 'hex')
-  );
-
-  if (!isValid) {
-    return res.status(401).send('Invalid signature');
-  }
-
-  const event = req.body;
-  // TODO: tangani event sesuai kebutuhan bisnis
-
-  res.status(200).send('OK');
-});
-
-app.listen(3000, () => {
-  console.log('Webhook listener berjalan di port 3000');
-});
-```
-
----
-
-## Tips Keamanan
-
-- Simpan secret webhook secara aman (contoh: Secrets Manager).
-- Pastikan endpoint webhook hanya menerima HTTPS.
-- Lindungi endpoint dari serangan replay dengan memeriksa timestamp.
-- Gunakan rate limiting untuk mencegah flood.
-- Catat seluruh webhook untuk debugging dan audit.
-
----
-
-## Menguji Webhook
-
-Gunakan mode sandbox untuk mengirim webhook percobaan dari dasbor merchant.
-
-1. Buka **Settings → Webhooks**.
-2. Masukkan URL webhook sandbox Anda (contoh: `https://ngrok.io/webhook`).
-3. Klik **Send Test Webhook**.
-4. Lihat log server Anda untuk memastikan payload diterima.
-
-Anda juga dapat menggunakan alat seperti `curl` untuk menyimulasikan webhook secara manual selama proses pengembangan.

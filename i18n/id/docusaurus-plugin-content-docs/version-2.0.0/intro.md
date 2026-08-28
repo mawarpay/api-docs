@@ -2,16 +2,16 @@
 id: intro
 slug: /
 title: Pengantar
-description: Panduan integrasi API v2 untuk autentikasi, pay-in, payout, dan pemantauan transaksi.
+description: Panduan integrasi API v1 untuk autentikasi, pay-in, payout, dan pemantauan transaksi.
 sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Dokumentasi API v2
+# Dokumentasi API v1
 
-Selamat datang di dokumentasi MawarPay API v2. Panduan ini menyediakan semua yang dibutuhkan untuk mengintegrasikan alur pembayaran yang aman dan andal pada sistem berbasis web menggunakan RESTful API dan JSON.
+Selamat datang di dokumentasi MawarPay API v1. Panduan ini menyediakan semua yang dibutuhkan untuk mengintegrasikan alur pembayaran yang aman dan andal pada sistem berbasis web menggunakan RESTful API dan JSON.
 
 :::tip Pemisahan Environment
 Gunakan `https://sandbox.mawarpay.com` untuk pengembangan/pengujian dan `https://production.mawarpay.com` untuk trafik produksi. Pisahkan kredensial dan token per environment.
@@ -19,7 +19,7 @@ Gunakan `https://sandbox.mawarpay.com` untuk pengembangan/pengujian dan `https:/
 
 ## Ringkasan
 
-API v2 dirancang untuk integrasi backend-to-backend dengan fokus pada:
+API v1 dirancang untuk integrasi backend-to-backend dengan fokus pada:
 
 - Struktur respons JSON yang konsisten
 - Autentikasi berbasis token menggunakan JWT
@@ -35,7 +35,7 @@ Gunakan base URL sesuai environment Anda:
 
 Semua path endpoint dalam dokumentasi ini relatif terhadap base URL yang dipilih.
 
-## Quick Start berdasarkan Use Case
+## Mulai cepat berdasarkan use case
 
 <Tabs defaultValue="payin" values={[
   {label: 'Pay-in', value: 'payin'},
@@ -44,15 +44,15 @@ Semua path endpoint dalam dokumentasi ini relatif terhadap base URL yang dipilih
 ]}>
 <TabItem value="payin">
 
-1. Autentikasi dengan [Login](/docs/auth/login-v2).
+1. Autentikasi dengan [Login](/docs/auth/login-v1).
 2. Buat pembayaran menggunakan [Create QRIS](/docs/qris-create) atau [Create Virtual Account](/docs/virtual-account-create).
-3. Pantau status lewat [Check Transaction Status](/docs/transactions/check-status) atau [Webhooks](/docs/webhooks-v2).
+3. Pantau status lewat [Check Transaction Status](/docs/transactions/check-status) atau [Webhooks](/docs/webhooks-v1).
 
 </TabItem>
 <TabItem value="payout">
 
-1. Autentikasi dengan [Login](/docs/auth/login-v2).
-2. Ambil metadata tujuan dari [Banks List](/docs/banks/list-v2).
+1. Autentikasi dengan [Login](/docs/auth/login-v1).
+2. Ambil metadata tujuan dari [Banks List](/docs/banks/list-v1).
 3. (Opsional) Daftarkan tujuan menggunakan [Create Withdrawal Account](/docs/withdraw-account).
 4. Kirim payout dengan [Create Withdrawal](/docs/withdraw).
 
@@ -61,14 +61,14 @@ Semua path endpoint dalam dokumentasi ini relatif terhadap base URL yang dipilih
 
 1. Simpan `trxId` dan `trxReference` untuk setiap transaksi.
 2. Lakukan polling [Check Transaction Status](/docs/transactions/check-status) dengan interval yang aman.
-3. Konfigurasikan [Webhooks](/docs/webhooks-v2) untuk pembaruan push yang hampir real-time.
+3. Konfigurasikan [Webhooks](/docs/webhooks-v1) untuk pembaruan push yang hampir real-time.
 
 </TabItem>
 </Tabs>
 
 ## Model Autentikasi
 
-API v2 menggunakan autentikasi bearer token:
+API v1 menggunakan autentikasi bearer token:
 
 1. Autentikasi melalui endpoint login untuk mendapatkan `accessToken`
 2. Kirim token pada header request untuk endpoint yang dilindungi:
@@ -108,13 +108,15 @@ Respons dikembalikan dalam JSON terstruktur:
 
 Urutan integrasi yang direkomendasikan:
 
-1. Tinjau referensi kode respons (`Response Code`)
-2. Implementasikan autentikasi (`Login`)
-3. Integrasikan endpoint master data (`Banks List`, `Wallets List`)
-4. Tambahkan alur transaksi bisnis dan penanganan webhook sesuai kebutuhan
+1. Buat [API key](/docs/settings/api-keys) di portal merchant
+2. Atur [Webhook Settings](/docs/webhooks-v1) untuk pembaruan status
+3. Izinkan IP server di [Allowlist IP](/docs/settings/ip-whitelist)
+4. Implementasikan autentikasi (`Login`)
+5. Integrasikan endpoint master data (`Banks List`, `Wallets List`)
+6. Tambahkan alur pay-in dan payout, dan tetap gunakan [Cek Status Transaksi](/docs/transactions/check-status) sebagai cadangan
 
 :::note Cakupan Dokumentasi
-Set dokumentasi ini untuk API v2. Untuk perilaku yang konsisten, selalu validasi logika integrasi terhadap konvensi kode respons dan status v2.
+Set dokumentasi ini untuk API v1. Untuk perilaku yang konsisten, selalu validasi logika integrasi terhadap konvensi kode respons dan status v1.
 :::
 
 ## Praktik Keamanan Terbaik
@@ -127,7 +129,7 @@ Set dokumentasi ini untuk API v2. Untuk perilaku yang konsisten, selalu validasi
 
 ## Versioning dan Kompatibilitas
 
-- Set dokumen ini hanya untuk **API v2**
+- Set dokumen ini hanya untuk **API v1**
 - Penambahan baru sebisa mungkin tetap backward-compatible
 - Breaking change sebaiknya dirilis pada major version baru
 

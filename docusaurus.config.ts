@@ -1,4 +1,5 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import type {Configuration as WebpackConfiguration} from 'webpack';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
@@ -94,6 +95,30 @@ const config: Config = {
               },
             ],
           };
+        },
+      };
+    },
+    function proxyIndonesianLocaleInDev() {
+      const isIndonesianDev =
+        process.env.DOCUSAURUS_CURRENT_LOCALE === 'id';
+      return {
+        name: 'proxy-indonesian-locale-in-dev',
+        configureWebpack(): WebpackConfiguration | void {
+          if (isIndonesianDev) {
+            return undefined;
+          }
+          return {
+            devServer: {
+              proxy: [
+                {
+                  context: ['/id'],
+                  target: 'http://127.0.0.1:3001',
+                  changeOrigin: true,
+                  ws: true,
+                },
+              ],
+            },
+          } as WebpackConfiguration;
         },
       };
     },

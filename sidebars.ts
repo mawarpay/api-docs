@@ -1,53 +1,76 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
-/**
- * Creating a sidebar enables you to:
- - create an ordered group of docs
- - render a sidebar for each doc of that group
- - provide next/previous navigation
-
- The sidebars can be generated from the filesystem, or explicitly defined here.
-
- Create as many sidebars as you want.
- */
 const sidebars: SidebarsConfig = {
   tutorialSidebar: [
     'intro',
-    'ip-whitelist',
-    'sandbox-guide',
-    'generate-qris',
-    'set-status',
     {
       type: 'category',
-      label: 'Wallets',
+      label: 'Core concepts',
+      collapsed: false,
       items: [
-        'wallets/wallets-index',
-        'wallets/wallets-list',
-        'wallets/wallets-details',
+        'base-url-environment-v1',
+        'headers-v1',
+        'rate-limits-v1',
+        'error-handling-v1',
+        'api-endpoints-v1',
       ],
     },
-    'withdrawal',
-    'check-withdraw',
     {
       type: 'category',
-      label: 'Withdraw Account Management',
+      label: 'Settings',
+      collapsed: false,
       items: [
-        'withdraw-account-management/withdraw-account-management-index',
-        'withdraw-account-management/withdraw-account-management-list',
-        'withdraw-account-management/withdraw-account-management-info',
-        'withdraw-account-management/withdraw-account-management-methods',
-        'withdraw-account-management/withdraw-account-management-banks-wallets',
-        'withdraw-account-management/withdraw-account-management-create',
-        'withdraw-account-management/withdraw-account-management-details',
-        'withdraw-account-management/withdraw-account-management-update',
-        'withdraw-account-management/withdraw-account-management-delete',
+        {type: 'doc', id: 'api-keys', label: 'API Keys'},
+        {type: 'doc', id: 'webhooks', label: 'Webhook Settings'},
+        {type: 'doc', id: 'ip-whitelist', label: 'IP Whitelist'},
       ],
     },
-    'webhooks',
-    'RESPONSE_CODES',
-    'support',
+    {
+      type: 'category',
+      label: 'Authentication',
+      collapsed: false,
+      items: ['auth-login-v1', 'auth-refresh-v1'],
+    },
+    {
+      type: 'category',
+      label: 'Payout',
+      collapsed: false,
+      items: ['withdraw'],
+    },
+    {
+      type: 'category',
+      label: 'Pay-in',
+      collapsed: false,
+      items: ['qris-create-v1', 'virtual-account-create'],
+    },
+    {
+      type: 'category',
+      label: 'Transaction status',
+      collapsed: false,
+      items: ['check-transaction-v1'],
+    },
+    {
+      type: 'category',
+      label: 'Sandbox',
+      collapsed: false,
+      items: ['set-status-v1'],
+    },
+    {
+      type: 'category',
+      label: 'Reference data',
+      collapsed: false,
+      items: ['banks-list-v1', 'wallets-list-v1'],
+    },
+    {
+      type: 'category',
+      label: 'Resources',
+      items: [
+        'response-code-v1',
+        'sdk-code-examples-v1',
+        'faq-v1',
+        'changelog-v1',
+      ],
+    },
   ],
 };
 

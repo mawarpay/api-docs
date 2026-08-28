@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "node scripts/dev-i18n.mjs",
+    "start:en": "docusaurus start",
+    "start:id": "DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-id docusaurus start --locale id --port 3001 --host 127.0.0.1 --no-open",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

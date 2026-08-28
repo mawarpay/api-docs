@@ -1,31 +1,46 @@
 ---
 id: webhooks
-slug: /webhooks-v2
-title: Webhook
-description: Konfigurasi pengiriman webhook, signature, retry, dan penanganan payload untuk pembaruan transaksi API v2.
-sidebar_position: 5
+slug: /webhooks-v1
+title: Webhook Settings
+description: Konfigurasi pengiriman webhook, signature, retry, dan penanganan payload untuk pembaruan transaksi API v1.
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Webhook
+# Webhook Settings
 
-Mawarpay mengirim notifikasi real-time ke URL IPN yang Anda tentukan ketika status pembayaran berubah. Ini memastikan Anda segera menerima informasi tentang pembayaran yang selesai, gagal, dan pembaruan status lainnya.
+MawarPay mengirim notifikasi real-time ke endpoint webhook Anda ketika status pembayaran atau penarikan berubah. Atur endpoint di halaman detail merchant, lalu verifikasi setiap payload dengan webhook secret.
 
-Konfigurasikan endpoint webhook Anda untuk menerima notifikasi pembayaran secara instan. Antarmuka konfigurasi webhook memungkinkan Anda mengatur URL endpoint, mengaktifkan atau menonaktifkan webhook, memverifikasi sertifikat SSL, dan menguji integrasi webhook.
+Buat `X-API-KEY` terlebih dahulu di [API Keys](/docs/settings/api-keys), lalu buka tab **Webhook Settings** pada merchant yang sama.
 
-![Antarmuka Konfigurasi Webhook](/img/webhook.png)
+![Webhook Settings di Detail Merchant](/img/webhook-v2.png)
+
+## Pengaturan dashboard
+
+Pada **Merchants → Merchant Detail → Webhook Settings**:
+
+| Pengaturan | Yang dilakukan |
+|---|---|
+| Webhook endpoint URL | URL HTTPS yang menerima event transaksi. Dashboard menandai URL yang valid. |
+| Enable webhook | Hidupkan untuk mengirim event. Matikan untuk menjeda semua pengiriman. |
+| Verify SSL | Biarkan aktif untuk HTTPS production. Matikan hanya untuk development lokal dengan sertifikat self-signed. |
+| Webhook secret | Gunakan **Reveal**, **Copy**, atau **Regenerate**. Signature memakai secret ini. |
+| Save Settings | Simpan endpoint, toggle, dan secret. |
+| Send Test Webhook | Kirim event contoh agar handler Anda teruji sebelum live. |
+
+Simpan webhook secret di konfigurasi server (bukan di browser). Gunakan pada [Verifikasi Signature](#verifikasi-signature).
 
 :::note Pengiriman Andal
-Mawarpay melakukan retry pengiriman webhook yang gagal hingga 5 kali menggunakan exponential backoff.
+MawarPay melakukan retry pengiriman webhook yang gagal hingga 5 kali menggunakan exponential backoff.
 :::
 
 ---
 
 ## Header Webhook
 
-| Header      | Description                       | Example        |
+| Header      | Keterangan                       | Contoh        |
 |------------------------|-----------------------------------------------|---------------------------|
 | `Content-Type`         | Selalu `application/json`          | `application/json`        |
 | `x-signature`          | Signature HMAC-SHA256 untuk verifikasi | `a8b9c2d1e5f3...`         |

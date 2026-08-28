@@ -1,247 +1,125 @@
 ---
-id: set-status
-title: Manajemen Status Pembayaran
-sidebar_position: 8
+id: set-status-v1
+slug: /set-status-v1
+title: Atur status transaksi (sandbox)
+description: API khusus sandbox untuk mensimulasikan perpindahan status transaksi saat testing. Tidak didukung di production.
+sidebar_position: 10
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## Manajemen Status Pembayaran
+## Ringkasan
 
-> ⚠️ **Hanya Sandbox**  
-> Fitur ini hanya tersedia di lingkungan sandbox/pengujian untuk kebutuhan development dan testing.
+Gunakan alur ini **hanya di sandbox** untuk memaksa atau mensimulasikan status transaksi (misalnya mengubah transaksi QRIS uji menjadi `completed`) tanpa menunggu settlement bank/jaringan yang sebenarnya.
 
-**Akses antarmuka manajemen status pembayaran** melalui navigasi dasbor merchant: buka **Payment → Set Status**.
+:::warning Hanya sandbox
+API **Set transaction status** (`POST /api/v1/transaction-set-status`) tersedia **hanya** pada base URL sandbox. Endpoint ini **tidak** tersedia di production. Jangan panggil endpoint ini di environment live.
+:::
 
-![Payment Status Management](/img/set-status-payment.png)
+## Atur status transaksi (API)
 
-### Status Pembayaran yang Tersedia
+### Endpoint
 
-| Status Code               | Kategori                         | Deskripsi Status                                              |
-|---------------------------|----------------------------------|---------------------------------------------------------------|
-| `pending`                 | `receive_payment`                | Transaksi menunggu konfirmasi pembayaran                     |
-| `awaiting_fi_process`     | `withdraw`                       | Menunggu diproses oleh institusi keuangan                    |
-| `awaiting_pg_process`     | `withdraw`                       | Dalam antrean gateway pembayaran untuk diproses lebih lanjut |
-| `awaiting_user_action`    | `withdraw`                       | Merchant/pelanggan harus melakukan tindakan lanjutan         |
-| `awaiting_admin_approval` | `withdraw`                       | Menunggu persetujuan manual dari administrator               |
-| `completed`               | `receive_payment`, `withdraw`    | Proses pembayaran berhasil diselesaikan                      |
-| `canceled`                | `receive_payment`, `withdraw`    | Proses pembayaran dibatalkan oleh pengguna atau sistem       |
-| `failed`                  | `receive_payment`, `withdraw`    | Proses pembayaran gagal karena kesalahan                     |
-| `refunded`                | `withdraw`                       | Dana dikembalikan ke pembayar setelah proses selesai         |
-| `expired`                 | `receive_payment`, `withdraw`    | Sesi pembayaran melewati batas waktu dan tidak dapat lanjut  |
+| Item | Value (sandbox) |
+|---|---|
+| HTTP method | `POST` |
+| URL | `https://sandbox.mawarpay.com/api/v1/transaction-set-status` |
+| Auth | Yes (`Authorization: Bearer {token}`, `X-API-KEY`) |
 
----
+### Request headers
 
-## API Cek Status Transaksi
+| Header | Value | Required |
+|---|---|---|
+| `Accept` | `application/json` | Yes |
+| `Content-Type` | `application/json` | Yes |
+| `X-API-KEY` | `{apiKey}` | Yes |
+| `Authorization` | `Bearer {token}` | Yes |
 
-Gunakan endpoint ini untuk mengambil status terkini sebuah transaksi secara real-time sekaligus detail transaksi terkait.
+### Request body
 
-**Endpoint:**  
-`GET /api/v1/check-status/{trxId}`
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `trxId` | string | Yes | Transaction ID yang akan diupdate (misalnya `trxId` yang dikembalikan saat membuat QRIS, VA, atau alur lainnya) |
+| `status` | string | Yes | Nilai status tujuan (lihat [Nilai status yang tersedia](#nilai-status-yang-tersedia)) |
 
-### Header Permintaan
+### Contoh kode
 
-| Header            | Nilai                | Wajib | Deskripsi                               |
-|-------------------|---------------------|:-----:|-----------------------------------------|
-| `Accept`          | `application/json`  | ✅    | Format respons yang diharapkan.         |
-| `X-MERCHANT-KEY`  | `{merchant_key}`    | ✅    | ID Merchant Anda.                       |
-| `X-API-KEY`       | `{api_key}`         | ✅    | API Key Anda.                           |
-
-### Parameter Path
-
-| Parameter | Tipe   | Wajib | Deskripsi                       |
-|-----------|--------|:-----:|---------------------------------|
-| `trxId`   | string | ✅    | Identitas unik transaksi        |
-
-### Contoh Kode
-
-<Tabs groupId="status-language" defaultValue="curl" values={[
-    { label: 'cURL', value: 'curl' },
-    { label: 'PHP (Laravel)', value: 'php' },
-    { label: 'Node.js', value: 'node' },
-    { label: 'Python', value: 'python' },
+<Tabs groupId="set-status-examples" defaultValue="curl" values={[
+  { label: 'cURL', value: 'curl' },
 ]}>
 
 <TabItem value="curl">
 
 ```bash
-curl -X GET "/api/v1/check-status/TRX123456789" \
-  -H "Accept: application/json" \
-  -H "X-MERCHANT-KEY: merchant_key" \
-  -H "X-API-KEY: api_key"
-```
-
-</TabItem>
-
-<TabItem value="php">
-
-```php
-<?php
-
-use Illuminate\Support\Facades\Http;
-
-$baseUrl = '/api/v1';
-$merchantKey = 'merchant_key';
-$apiKey = 'api_key';
-$trxId = 'TRX123456789';
-
-$response = Http::timeout(60)->withHeaders([
-    'Accept' => 'application/json',
-    'X-MERCHANT-KEY' => $merchantKey,
-    'X-API-KEY' => $apiKey,
-])->get("{$baseUrl}/check-status/{$trxId}");
-
-if ($response->successful()) {
-    $result = $response->json();
-    echo "Status: " . $result['status'] . PHP_EOL;
-    echo "Pesan: " . $result['message'] . PHP_EOL;
-} else {
-    $error = $response->json();
-    echo "Error: " . $error['message'];
-}
-```
-
-</TabItem>
-
-<TabItem value="node">
-
-```javascript
-const axios = require('axios');
-
-const baseUrl = '/api/v1';
-const merchantKey = 'merchant_key';
-const apiKey = 'api_key';
-const trxId = 'TRX123456789';
-
-axios
-  .get(`${baseUrl}/check-status/${trxId}`, {
-    headers: {
-      Accept: 'application/json',
-      'X-MERCHANT-KEY': merchantKey,
-      'X-API-KEY': apiKey,
-    },
-  })
-  .then((response) => {
-    console.log('Status:', response.data.status);
-    console.log('Pesan:', response.data.message);
-  })
-  .catch((error) => {
-    if (error.response) {
-      console.error('Error:', error.response.data.message);
-    } else {
-      console.error('Error:', error.message);
-    }
-  });
-```
-
-</TabItem>
-
-<TabItem value="python">
-
-```python
-import requests
-
-base_url = '/api/v1'
-merchant_key = 'merchant_key'
-api_key = 'api_key'
-trx_id = 'TRX123456789'
-
-headers = {
-    'Accept': 'application/json',
-    'X-MERCHANT-KEY': merchant_key,
-    'X-API-KEY': api_key,
-}
-
-response = requests.get(f"{base_url}/check-status/{trx_id}", headers=headers)
-
-if response.status_code == 200:
-    result = response.json()
-    print(f"Status: {result['status']}")
-    print(f"Pesan: {result['message']}")
-else:
-    error = response.json()
-    print(f"Error: {error['message']}")
+curl --location 'https://sandbox.mawarpay.com/api/v1/transaction-set-status' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --header 'X-API-KEY: {apiKey}' \
+  --header 'Authorization: Bearer {token}' \
+  --data '{
+  "trxId": "TRXQRIS3B2XHYDVK7OMRSSSSI",
+  "status": "completed"
+}'
 ```
 
 </TabItem>
 
 </Tabs>
 
----
+:::tip Alur testing
+Buat transaksi di sandbox (misalnya [Create QRIS](/docs/qris-create)), salin `data.trxId` dari respons, lalu panggil endpoint ini dengan `status` yang diinginkan untuk menguji webhooks atau polling [Check Transaction Status](/docs/transactions/check-status).
+:::
 
-<Tabs groupId="status-response" defaultValue="success" values={[
-    { label: 'Success', value: 'success' },
-    { label: 'Pending', value: 'pending' },
-    { label: '404 Not Found', value: 'not-found' },
-    { label: '500 Internal Server Error', value: 'server-error' },
-]}>
+### Response
 
-<TabItem value="success">
+#### Berhasil (`200 OK`)
 
 ```json
 {
+  "code": 2000203,
+  "message": "Transaction status updated",
+  "data": {
     "status": "completed",
-    "message": "receive_payment, request status checked successfully.",
-    "data": {
-        "trx_id": "TRX-2025.11.18-CBBTFMQ8CI",
-        "trx_reference": "1e3ff45c-3fab-4894-a2b0-2cf0180a8234",
-        "rrn": "9889cdc74976",
-        "amount": 1000,
-        "currency_code": null,
-        "status": "completed"
-    }
+    "trxId": "TRXQRIS3B2XHYDVK7OMRSSSSI",
+    "updatedAt": "2026-05-09T12:26:16Z"
+  }
 }
 ```
 
-</TabItem>
+| Field | Type | Description |
+|---|---|---|
+| `code` | number | Kode respons aplikasi |
+| `message` | string | Pesan hasil |
+| `data.status` | string | Status setelah update (sesuai `status` yang Anda kirim jika diterima) |
+| `data.trxId` | string | Identifier transaksi |
+| `data.updatedAt` | string | Waktu status diupdate (ISO 8601) |
 
-<TabItem value="pending">
+### Nilai status yang tersedia
 
-```json
-{
-    "status": "pending",
-    "message": "receive_payment, request status checked successfully.",
-    "data": {
-        "trx_id": "TRX-2025.11.19-XXEAJ4MTLW",
-        "trx_reference": "39bb5912-135a-421a-b947-33a0f0754ee9",
-        "rrn": null,
-        "amount": 1000,
-        "currency_code": null,
-        "status": "pending"
-    }
-}
-```
+Status di bawah dapat muncul dari API sandbox ini, pada payload [webhooks](/docs/webhooks-v1), dan pada `data.status` dari **[Check Transaction Status](/docs/transactions/check-status)**. Nilai yang tepat bergantung pada channel dan flow.
 
-</TabItem>
+| Status code | Kategori | Keterangan |
+|-------------|----------|-------------|
+| `pending` | `receive_payment`, `withdraw` | Menunggu aksi pembayar atau pemrosesan awal |
+| `awaiting_fi_process` | `withdraw` | Menunggu pemrosesan oleh institusi keuangan |
+| `awaiting_pg_process` | `withdraw` | Masuk antrean di payment gateway |
+| `awaiting_user_action` | `withdraw` | Aksi merchant atau customer diperlukan |
+| `awaiting_admin_approval` | `withdraw` | Menunggu persetujuan administrator |
+| `completed` | `receive_payment`, `withdraw` | Alur selesai dengan sukses (juga umum di payload webhook untuk pay-in) |
+| `canceled` | `receive_payment`, `withdraw` | Dibatalkan oleh user atau sistem |
+| `failed` | `receive_payment`, `withdraw` | Berakhir dengan error |
+| `refunded` | `withdraw` | Dana dikembalikan setelah selesai atau pembalikan |
+| `expired` | `receive_payment`, `withdraw` | Sesi pay-in atau masa berlaku habis |
 
-<TabItem value="not-found">
-
-```json
-{
-    "success": false,
-    "message": "Transaction not found."
-}
-```
-
-</TabItem>
-
-<TabItem value="server-error">
-
-```json
-{
-    "success": false,
-    "message": "Failed to check transaction status.",
-    "error": "Error details here"
-}
-```
-
-</TabItem>
-
-</Tabs>
+Withdrawal-specific processing states (`awaiting_*`) dirangkum di **[Create Withdrawal](/docs/withdraw#available-withdraw-status)** beserta diagram lifecycle yang berfokus pada payout.
 
 ---
 
-> ℹ️ **Catatan:** Pesan status akan memuat jenis transaksi (misal, "Payment, request status checked successfully" atau "Withdrawal, request status checked successfully").
+## Cek status transaksi (baca)
 
+Di **API v1**, lookup status secara programatis (bukan mengubah status) menggunakan **`POST /api/v1/transactions`** dengan **`Authorization: Bearer {token}`** dan **`X-API-KEY`**. Kirim JSON dengan `value` (misalnya `trxId`) dan set **`Type`** ke **`TRX_ID`**.
 
+Gunakan skema lengkap dan panduan polling: **[Check Transaction Status](/docs/transactions/check-status)**.
+
+Untuk pembaruan push (tanpa polling), konfigurasi **[Webhooks](/docs/webhooks-v1)**.

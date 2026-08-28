@@ -3,21 +3,46 @@
     "intro",
     {
       "type": "category",
+      "label": "Settings",
+      "collapsed": false,
+      "items": [
+        {
+          "type": "doc",
+          "id": "api-keys",
+          "label": "API Keys"
+        },
+        {
+          "type": "doc",
+          "id": "webhooks",
+          "label": "Webhook Settings"
+        },
+        {
+          "type": "doc",
+          "id": "ip-whitelist",
+          "label": "IP Whitelist"
+        }
+      ]
+    },
+    {
+      "type": "category",
       "label": "Core concepts",
       "collapsed": false,
       "items": [
-        "base-url-environment-v2",
-        "headers-v2",
-        "rate-limits-v2",
-        "error-handling-v2",
-        "api-endpoints-v2"
+        "base-url-environment-v1",
+        "headers-v1",
+        "rate-limits-v1",
+        "error-handling-v1",
+        "api-endpoints-v1"
       ]
     },
     {
       "type": "category",
       "label": "Authentication",
       "collapsed": false,
-      "items": ["auth-login-v2", "auth-refresh-v2"]
+      "items": [
+        "auth-login-v1",
+        "auth-refresh-v1"
+      ]
     },
     {
       "type": "category",
@@ -29,34 +54,34 @@
       "type": "category",
       "label": "Pay-in",
       "collapsed": false,
-      "items": ["qris-create-v2", "virtual-account-create"]
+      "items": ["qris-create-v1", "virtual-account-create"]
     },
     {
       "type": "category",
       "label": "Transaction status",
       "collapsed": false,
-      "items": ["check-transaction-v2", "webhooks"]
+      "items": ["check-transaction-v1"]
     },
     {
       "type": "category",
       "label": "Sandbox",
       "collapsed": false,
-      "items": ["set-status-v2"]
+      "items": ["set-status-v1"]
     },
     {
       "type": "category",
       "label": "Reference data",
       "collapsed": false,
-      "items": ["banks-list-v2", "wallets-list-v2"]
+      "items": ["banks-list-v1", "wallets-list-v1"]
     },
     {
       "type": "category",
       "label": "Resources",
       "items": [
-        "response-code-v2",
-        "sdk-code-examples-v2",
-        "faq-v2",
-        "changelog-v2"
+        "response-code-v1",
+        "sdk-code-examples-v1",
+        "faq-v1",
+        "changelog-v1"
       ]
     }
   ]

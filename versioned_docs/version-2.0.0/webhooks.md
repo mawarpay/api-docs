@@ -1,24 +1,39 @@
 ---
 id: webhooks
-slug: /webhooks-v2
-title: Webhooks
-description: Configure webhook delivery, signatures, retries, and payload handling for API v2 transaction updates.
-sidebar_position: 5
+slug: /webhooks-v1
+title: Webhook Settings
+description: Configure webhook delivery, signatures, retries, and payload handling for API v1 transaction updates.
+sidebar_position: 2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Webhooks
+# Webhook Settings
 
-Mawarpay sends real-time notifications to your specified IPN URL when payment status changes. This ensures you're immediately notified of payment completions, failures, and other status updates.
+MawarPay sends real-time notifications to your webhook endpoint when payment or withdrawal status changes. Configure the endpoint on the merchant detail page, then verify each payload with the webhook secret.
 
-Configure your webhook endpoint to receive instant payment notifications. The webhook configuration interface allows you to set up your endpoint URL, enable or disable webhooks, verify SSL certificates, and test your webhook integration.
+Create your `X-API-KEY` first in [API Keys](/docs/settings/api-keys), then open the **Webhook Settings** tab on the same merchant.
 
-![Webhook Configuration Interface](/img/webhook-v2.png)
+![Webhook Settings in Merchant Detail](/img/webhook-v2.png)
+
+## Dashboard settings
+
+On **Merchants → Merchant Detail → Webhook Settings**:
+
+| Setting | What to do |
+|---|---|
+| Webhook endpoint URL | HTTPS URL that receives transaction events. The dashboard marks a valid URL. |
+| Enable webhook | Turn on to send events. Turn off to pause all deliveries. |
+| Verify SSL | Keep on for production HTTPS. Disable only for local development with self-signed certificates. |
+| Webhook secret | Use **Reveal**, **Copy**, or **Regenerate**. Signatures use this secret. |
+| Save Settings | Persist endpoint, toggles, and secret. |
+| Send Test Webhook | Send a sample event so you can confirm your handler before going live. |
+
+Store the webhook secret in server-side config (not in the browser). Use it in [Signature Verification](#signature-verification).
 
 :::note Reliable Delivery
-Mawarpay retries failed webhook deliveries up to 5 times using exponential backoff.
+MawarPay retries failed webhook deliveries up to 5 times using exponential backoff.
 :::
 
 ---

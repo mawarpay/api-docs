@@ -3,12 +3,40 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Wallets": {
-    "message": "Wallets",
-    "description": "The label for category 'Wallets' in sidebar 'tutorialSidebar'"
+  "sidebar.tutorialSidebar.category.Settings": {
+    "message": "Settings",
+    "description": "The label for category 'Settings' in sidebar 'tutorialSidebar'"
   },
-  "sidebar.tutorialSidebar.category.Withdraw Account Management": {
-    "message": "Withdraw Account Management",
-    "description": "The label for category 'Withdraw Account Management' in sidebar 'tutorialSidebar'"
+  "sidebar.tutorialSidebar.category.Core concepts": {
+    "message": "Core concepts",
+    "description": "The label for category 'Core concepts' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Authentication": {
+    "message": "Authentication",
+    "description": "The label for category 'Authentication' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Payout": {
+    "message": "Payout",
+    "description": "The label for category 'Payout' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Pay-in": {
+    "message": "Pay-in",
+    "description": "The label for category 'Pay-in' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Transaction status": {
+    "message": "Transaction status",
+    "description": "The label for category 'Transaction status' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Sandbox": {
+    "message": "Sandbox",
+    "description": "The label for category 'Sandbox' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Reference data": {
+    "message": "Reference data",
+    "description": "The label for category 'Reference data' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Resources": {
+    "message": "Resources",
+    "description": "The label for category 'Resources' in sidebar 'tutorialSidebar'"
   }
 }
