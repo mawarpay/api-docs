@@ -11,7 +11,7 @@ displayed_sidebar: tutorialSidebar
 
 Permintaan API v1 mengirim API key merchant pada header `X-API-KEY` bersama Bearer token dari [Login](/docs/auth/login-v1). Buat key tersebut di portal merchant, lalu salin ke konfigurasi server.
 
-:::warning Simpan kredensial di server
+:::warning[Simpan kredensial di server]
 Salin key baru segera. Nilai lengkap hanya ditampilkan sekali. Jangan menanam API key di aplikasi klien atau mobile.
 :::
 

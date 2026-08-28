@@ -11,7 +11,7 @@ displayed_sidebar: tutorialSidebar
 
 API v1 requests send your merchant API key in the `X-API-KEY` header together with a Bearer token from [Login](/docs/auth/login-v1). Create that key in the merchant portal, then copy it into server-side config.
 
-:::warning Keep credentials server-side
+:::warning[Keep credentials server-side]
 Copy a new key immediately. The full value is shown once. Never embed API keys in client-side or mobile apps.
 :::
 

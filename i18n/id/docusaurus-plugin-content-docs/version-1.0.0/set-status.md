@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 Gunakan alur ini **hanya di sandbox** untuk memaksa atau mensimulasikan status transaksi (misalnya mengubah transaksi QRIS uji menjadi `completed`) tanpa menunggu settlement bank/jaringan yang sebenarnya.
 
-:::warning Hanya sandbox
+:::warning[Hanya sandbox]
 API **Set transaction status** (`POST /api/v1/transaction-set-status`) tersedia **hanya** pada base URL sandbox. Endpoint ini **tidak** tersedia di production. Jangan panggil endpoint ini di environment live.
 :::
 
@@ -67,7 +67,7 @@ curl --location 'https://sandbox.mawarpay.com/api/v1/transaction-set-status' \
 
 </Tabs>
 
-:::tip Alur testing
+:::tip[Alur testing]
 Buat transaksi di sandbox (misalnya [Create QRIS](/docs/qris-create)), salin `data.trxId` dari respons, lalu panggil endpoint ini dengan `status` yang diinginkan untuk menguji webhooks atau polling [Check Transaction Status](/docs/transactions/check-status).
 :::
 

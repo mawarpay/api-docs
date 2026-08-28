@@ -54,7 +54,7 @@ Alur umum:
 | `feeType` | string | ✅ | Kebijakan pembebanan biaya: `CUSTOMER` atau `SELLER`. |
 | `expire` | number | ❌ | Opsional. Lama waktu (dalam detik) QR tetap valid sebelum kedaluwarsa. Jika tidak diisi, sistem menerapkan durasi default 1 jam. |
 
-:::note Tanggung Jawab Biaya
+:::note[Tanggung Jawab Biaya]
 Jika `feeType` adalah `SELLER`, biaya layanan ditanggung merchant/penjual.  
 Jika `feeType` adalah `CUSTOMER`, biaya layanan ditanggung pelanggan.
 :::

@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 Use this flow in **sandbox only** to force or simulate a transaction status (for example moving a test QRIS transaction to `completed`) without waiting for real bank or network settlement.
 
-:::warning Sandbox only
+:::warning[Sandbox only]
 The **Set transaction status** API (`POST /api/v1/transaction-set-status`) is available **only** on the sandbox base URL. It is **not** exposed on production. Do not call this endpoint in live environments.
 :::
 
@@ -69,7 +69,7 @@ curl --location 'https://sandbox.mawarpay.com/api/v1/transaction-set-status' \
 
 </Tabs>
 
-:::tip Testing flow
+:::tip[Testing flow]
 Create a transaction in sandbox (for example [Create QRIS](/docs/qris-create)), copy `data.trxId` from the response, then call this endpoint with the desired `status` to exercise webhooks or [Check Transaction Status](/docs/transactions/check-status) polling.
 :::
 

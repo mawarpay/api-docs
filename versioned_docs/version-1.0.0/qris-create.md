@@ -56,7 +56,7 @@ Typical flow:
 | `expire` | number | ❌ | Optional. How long (in seconds) the QR code will remain valid before expiring. If not provided, a default expiry duration 1 hour is applied by the system. |
 
 
-:::note Fee Responsibility
+:::note[Fee Responsibility]
 If `feeType` is `SELLER`, the service cost is borne by the merchant/seller.  
 If `feeType` is `CUSTOMER`, the service cost is borne by the customer.
 :::

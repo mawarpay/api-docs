@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 Welcome to the MawarPay API v1 documentation. This guide provides everything needed to integrate secure, reliable payment workflows in web-based systems using RESTful APIs and JSON.
 
-:::tip Environment Separation
+:::tip[Environment Separation]
 Use `https://sandbox.mawarpay.com` for development/testing and `https://production.mawarpay.com` for live traffic. Keep credentials and tokens separated per environment.
 :::
 
@@ -115,7 +115,7 @@ Recommended integration order:
 5. Integrate master data endpoints (`Banks List`, `Wallets List`)
 6. Add pay-in and payout flows, and keep [Check Transaction Status](/docs/transactions/check-status) as a fallback
 
-:::note Documentation Scope
+:::note[Documentation Scope]
 This documentation set is for API v1. For predictable behavior, always validate integration logic against the v1 response code and status conventions.
 :::
 

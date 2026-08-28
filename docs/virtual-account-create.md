@@ -53,7 +53,7 @@ Typical flow:
 | `amount` | number | ✅ | Payment amount in IDR |
 | `feeType` | Required| | allowed values: `CUSTOMER`, `SELLER` |
 
-:::note Fee Responsibility
+:::note[Fee Responsibility]
 If `feeType` is `SELLER`, the service cost is borne by the merchant/seller.  
 If `feeType` is `CUSTOMER`, the service cost is borne by the customer.
 :::

@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 Gunakan indeks endpoint berikut untuk menavigasi operasi API v1.
 
-:::tip Gunakan Halaman Ini sebagai Indeks
+:::tip[Gunakan Halaman Ini sebagai Indeks]
 Setiap halaman endpoint yang ditautkan mengikuti struktur yang konsisten: ringkasan, detail endpoint, request, response, dan catatan keandalan.
 :::
 
@@ -78,6 +78,6 @@ Semua endpoint dalam dokumentasi ini mengikuti struktur berikut:
 </TabItem>
 </Tabs>
 
-:::warning Endpoint yang Dilindungi
+:::warning[Endpoint yang Dilindungi]
 Sebagian besar endpoint memerlukan `Authorization: Bearer {token}` dan `X-API-KEY`. Selalu cek header yang dibutuhkan pada setiap halaman endpoint sebelum go-live.
 :::

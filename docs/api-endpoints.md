@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 Use the following endpoint index to navigate API v1 operations.
 
-:::tip Use This Page as an Index
+:::tip[Use This Page as an Index]
 Each linked endpoint page follows a consistent structure: overview, endpoint details, request, response, and reliability notes.
 :::
 
@@ -78,6 +78,6 @@ All endpoints in this documentation follow this structure:
 </TabItem>
 </Tabs>
 
-:::warning Protected Endpoints
+:::warning[Protected Endpoints]
 Most endpoints require both `Authorization: Bearer {token}` and `X-API-KEY`. Always confirm required headers on each endpoint page before going live.
 :::

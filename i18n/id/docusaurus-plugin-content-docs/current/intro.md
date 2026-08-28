@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem';
 
 Selamat datang di dokumentasi MawarPay API v1. Panduan ini menyediakan semua yang dibutuhkan untuk mengintegrasikan alur pembayaran yang aman dan andal pada sistem berbasis web menggunakan RESTful API dan JSON.
 
-:::tip Pemisahan Environment
+:::tip[Pemisahan Environment]
 Gunakan `https://sandbox.mawarpay.com` untuk pengembangan/pengujian dan `https://production.mawarpay.com` untuk trafik produksi. Pisahkan kredensial dan token per environment.
 :::
 
@@ -115,7 +115,7 @@ Urutan integrasi yang direkomendasikan:
 5. Integrasikan endpoint master data (`Banks List`, `Wallets List`)
 6. Tambahkan alur pay-in dan payout, dan tetap gunakan [Cek Status Transaksi](/docs/transactions/check-status) sebagai cadangan
 
-:::note Cakupan Dokumentasi
+:::note[Cakupan Dokumentasi]
 Set dokumentasi ini untuk API v1. Untuk perilaku yang konsisten, selalu validasi logika integrasi terhadap konvensi kode respons dan status v1.
 :::
 

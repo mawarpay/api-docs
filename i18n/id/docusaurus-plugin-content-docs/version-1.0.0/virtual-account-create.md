@@ -53,7 +53,7 @@ Alur umum:
 | `amount` | number | ✅ | Jumlah pembayaran dalam IDR |
 | `feeType` | Required| | allowed values: `CUSTOMER`, `SELLER` |
 
-:::note Tanggung Jawab Biaya
+:::note[Tanggung Jawab Biaya]
 Jika `feeType` adalah `SELLER`, biaya layanan ditanggung merchant/penjual.  
 Jika `feeType` adalah `CUSTOMER`, biaya layanan ditanggung pelanggan.
 :::

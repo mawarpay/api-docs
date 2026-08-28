@@ -32,7 +32,7 @@ On **Merchants → Merchant Detail → Webhook Settings**:
 
 Store the webhook secret in server-side config (not in the browser). Use it in [Signature Verification](#signature-verification).
 
-:::note Reliable Delivery
+:::note[Reliable Delivery]
 MawarPay retries failed webhook deliveries up to 5 times using exponential backoff.
 :::
 

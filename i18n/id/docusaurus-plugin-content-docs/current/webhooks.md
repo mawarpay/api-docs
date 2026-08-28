@@ -32,7 +32,7 @@ Pada **Merchants → Merchant Detail → Webhook Settings**:
 
 Simpan webhook secret di konfigurasi server (bukan di browser). Gunakan pada [Verifikasi Signature](#verifikasi-signature).
 
-:::note Pengiriman Andal
+:::note[Pengiriman Andal]
 MawarPay melakukan retry pengiriman webhook yang gagal hingga 5 kali menggunakan exponential backoff.
 :::
 
