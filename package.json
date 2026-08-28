@@ -9,13 +9,14 @@
     "start:id": "DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-id docusaurus start --locale id --port 3001 --host 127.0.0.1 --no-open",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
+    "deploy": "npm run build && wrangler deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "prepare": "husky"
+    "prepare": "husky",
+    "preview": "npm run build && wrangler dev"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.2",
@@ -42,7 +43,8 @@
     "@docusaurus/tsconfig": "^3.10.2",
     "@docusaurus/types": "^3.10.2",
     "husky": "^9.1.7",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.127.0"
   },
   "browserslist": {
     "production": [
