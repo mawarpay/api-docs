@@ -3,6 +3,30 @@
     "intro",
     {
       "type": "category",
+      "label": "Core concepts",
+      "collapsed": false,
+      "items": [
+        "base-url-environment-v1",
+        "headers-v1",
+        "rate-limits-v1",
+        "error-handling-v1",
+        "api-endpoints-v1"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Security",
+      "collapsed": false,
+      "items": [
+        {
+          "type": "doc",
+          "id": "ip-allowlist",
+          "label": "API Client IP Allowlist"
+        }
+      ]
+    },
+    {
+      "type": "category",
       "label": "Settings",
       "collapsed": false,
       "items": [
@@ -14,25 +38,8 @@
         {
           "type": "doc",
           "id": "webhooks",
-          "label": "Webhook Settings"
-        },
-        {
-          "type": "doc",
-          "id": "ip-whitelist",
-          "label": "IP Whitelist"
+          "label": "Webhooks v1"
         }
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Core concepts",
-      "collapsed": false,
-      "items": [
-        "base-url-environment-v1",
-        "headers-v1",
-        "rate-limits-v1",
-        "error-handling-v1",
-        "api-endpoints-v1"
       ]
     },
     {

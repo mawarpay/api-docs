@@ -13,7 +13,7 @@ Gunakan sandbox: `https://sandbox.mawarpay.com`.
 Masuk di [portal.mawarpay.com](https://portal.mawarpay.com), buka **Merchants**, pilih merchant, lalu gunakan tab **API Keys** untuk membuat dan menyalin key. Lihat [API Keys](/docs/settings/api-keys).
 
 ### Bagaimana cara menambahkan IP ke allowlist?
-Pada halaman detail merchant yang sama, buka tab **IP Whitelist**, klik **Add IP**, lalu simpan formulir. Lihat [Allowlist IP](/docs/settings/ip-whitelist).
+Pada halaman detail merchant yang sama, buka tab **IP Whitelist**, klik **Add IP**, lalu simpan formulir. Lihat [Allowlist IP](/docs/settings/ip-allowlist).
 
 ### Bagaimana cara autentikasi request API?
 Gunakan `Authorization: Bearer {token}` dan `X-API-KEY: {apiKey}`.

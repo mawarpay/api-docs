@@ -110,7 +110,7 @@ Recommended integration order:
 
 1. Create an [API key](/docs/settings/api-keys) in the merchant portal
 2. Configure [Webhook Settings](/docs/webhooks-v1) for status push updates
-3. Allow your server IPs in [IP Whitelist](/docs/settings/ip-whitelist)
+3. Allow your server IPs in [API Client IP Allowlist](/docs/settings/ip-allowlist)
 4. Implement authentication (`Login`)
 5. Integrate master data endpoints (`Banks List`, `Wallets List`)
 6. Add pay-in and payout flows, and keep [Check Transaction Status](/docs/transactions/check-status) as a fallback
@@ -124,6 +124,7 @@ This documentation set is for API v1. For predictable behavior, always validate 
 - Always use HTTPS in non-local environments
 - Store API credentials and tokens in secure server-side storage
 - Never expose secrets in browser code or logs
+- Restrict API access with the [API Client IP Allowlist](/docs/settings/ip-allowlist) on production merchants
 - Apply rate limiting and monitoring on authentication endpoints
 - Rotate secrets and revoke compromised tokens immediately
 

@@ -13,7 +13,7 @@ Use sandbox: `https://sandbox.mawarpay.com`.
 Sign in at [portal.mawarpay.com](https://portal.mawarpay.com), open **Merchants**, select a merchant, then use the **API Keys** tab to create and copy a key. See [API Keys](/docs/settings/api-keys).
 
 ### How do I whitelist an IP?
-On the same merchant detail page, open the **IP Whitelist** tab, click **Add IP**, and save the form. See [IP Whitelist](/docs/settings/ip-whitelist).
+On the same merchant detail page, open the **IP Whitelist** tab, click **Add IP**, and save the form. See [API Client IP Allowlist](/docs/settings/ip-allowlist).
 
 ### How do I authenticate API requests?
 Use `Authorization: Bearer {token}` and `X-API-KEY: {apiKey}`.

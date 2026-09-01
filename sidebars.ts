@@ -17,12 +17,19 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Security',
+      collapsed: false,
+      items: [
+        {type: 'doc', id: 'ip-allowlist', label: 'API Client IP Allowlist'},
+      ],
+    },
+    {
+      type: 'category',
       label: 'Settings',
       collapsed: false,
       items: [
         {type: 'doc', id: 'api-keys', label: 'API Keys'},
-        {type: 'doc', id: 'webhooks', label: 'Webhook Settings'},
-        {type: 'doc', id: 'ip-whitelist', label: 'IP Whitelist'},
+        {type: 'doc', id: 'webhooks', label: 'Webhooks v1'},
       ],
     },
     {

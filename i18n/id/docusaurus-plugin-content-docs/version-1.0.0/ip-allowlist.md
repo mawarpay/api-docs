@@ -1,6 +1,6 @@
 ---
-id: ip-whitelist
-slug: /settings/ip-whitelist
+id: ip-allowlist
+slug: /settings/ip-allowlist
 title: Allowlist IP
 description: Izinkan akses API dari alamat IP atau rentang CIDR tertentu di portal merchant MawarPay.
 sidebar_position: 3

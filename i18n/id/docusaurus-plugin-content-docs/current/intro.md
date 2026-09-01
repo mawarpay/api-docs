@@ -110,7 +110,7 @@ Urutan integrasi yang direkomendasikan:
 
 1. Buat [API key](/docs/settings/api-keys) di portal merchant
 2. Atur [Webhook Settings](/docs/webhooks-v1) untuk pembaruan status
-3. Izinkan IP server di [Allowlist IP](/docs/settings/ip-whitelist)
+3. Izinkan IP server di [Allowlist IP](/docs/settings/ip-allowlist)
 4. Implementasikan autentikasi (`Login`)
 5. Integrasikan endpoint master data (`Banks List`, `Wallets List`)
 6. Tambahkan alur pay-in dan payout, dan tetap gunakan [Cek Status Transaksi](/docs/transactions/check-status) sebagai cadangan

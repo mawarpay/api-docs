@@ -28,6 +28,7 @@ API errors follow a consistent JSON structure to simplify client-side handling.
 |---|---|---|
 | `400` | Bad Request | Invalid request format |
 | `401` | Unauthorized | Missing/invalid token |
+| `403` | Forbidden | Client IP not on merchant [API Client IP Allowlist](/docs/settings/ip-allowlist) |
 | `404` | Not Found | Unknown resource or transaction |
 | `422` | Validation Error | Business/field validation failed |
 | `429` | Too Many Requests | Rate limit exceeded |
