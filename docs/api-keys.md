@@ -78,4 +78,4 @@ curl --location 'https://sandbox.mawarpay.com/api/v1/example' \
 
 ## Next dashboard settings
 
-After the API key is saved on your server, open **Webhook Settings** and **IP Whitelist** on the same merchant detail page. See [Webhooks v1](/docs/webhooks-v1) and [API Client IP Allowlist](/docs/settings/ip-allowlist).
+After the API key is saved on your server, open **Webhook Settings** and **IP Whitelist** on the same merchant detail page. See [Webhooks](/docs/webhooks-v1) and [API Client IP Allowlist](/docs/settings/ip-allowlist).

@@ -40,7 +40,7 @@ These are separate security mechanisms. Do not confuse API access control with w
 | Merchant action | Add your server's outbound IPs | Configure HTTPS URL and verify signatures |
 
 :::warning[No Webhook IP Allowlist in the portal]
-MawarPay does **not** provide a merchant-portal **Webhook IP Allowlist** setting. [Webhooks v1](/docs/webhooks-v1) are authenticated with HMAC signatures, not by matching MawarPay egress IPs in the allowlist. You may optionally restrict inbound traffic on **your** firewall to trusted sources, but that is separate from the API Client IP Allowlist documented here.
+MawarPay does **not** provide a merchant-portal **Webhook IP Allowlist** setting. [Webhooks](/docs/webhooks-v1) are authenticated with HMAC signatures, not by matching MawarPay egress IPs in the allowlist. You may optionally restrict inbound traffic on **your** firewall to trusted sources, but that is separate from the API Client IP Allowlist documented here.
 :::
 
 ---
@@ -49,25 +49,14 @@ MawarPay does **not** provide a merchant-portal **Webhook IP Allowlist** setting
 
 When your application calls MawarPay API v1:
 
+```mermaid
+flowchart TD
+    A[Your server<br/>client IP] --> B[MawarPay API gateway]
+    B --> C[API Client IP Allowlist check]
+    C -->|Match| D[Continue auth +<br/>business logic]
+    C -->|No match| E[HTTP 403<br/>rejected]
 ```
-Your server (client IP)
-        |
-        v
-MawarPay API gateway
-        |
-        v
-API Client IP Allowlist check
-        |
-   +----+----+
-   |         |
- Match    No match
-   |         |
-   v         v
-Continue   HTTP 403
-auth +     (rejected)
-business
-logic
-```
+
 
 After a successful allowlist match, MawarPay continues with token validation, `X-API-KEY` checks, and the requested endpoint logic.
 
@@ -211,7 +200,7 @@ When infrastructure changes (new servers, migration, or IP rotation), update all
 | Setting | Purpose |
 |---------|---------|
 | [API Keys](/docs/settings/api-keys) | Authenticate API requests with `X-API-KEY` |
-| [Webhooks v1](/docs/webhooks-v1) | Receive transaction notifications (signature-based, not IP allowlist) |
+| [Webhooks](/docs/webhooks-v1) | Receive transaction notifications (signature-based, not IP allowlist) |
 | [API Client IP Allowlist](/docs/settings/ip-allowlist) | Restrict which client IPs can call the API |
 
-If you have not done so yet, create an [API key](/docs/settings/api-keys) and configure [Webhooks v1](/docs/webhooks-v1) on the same merchant detail page.
+If you have not done so yet, create an [API key](/docs/settings/api-keys) and configure [Webhooks](/docs/webhooks-v1) on the same merchant detail page.

@@ -1,7 +1,7 @@
 ---
 id: webhooks
 slug: /webhooks-v1
-title: Webhooks v1
+title: Webhooks
 description: Receive real-time transaction notifications, verify HMAC signatures, and handle payment and withdrawal events for API v1.
 sidebar_position: 2
 ---
@@ -9,7 +9,7 @@ sidebar_position: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Webhooks v1
+# Webhooks
 
 MawarPay delivers real-time HTTP notifications to your server when payment or withdrawal status changes. Use webhooks to update orders, trigger fulfillment, and reconcile transactions without polling.
 

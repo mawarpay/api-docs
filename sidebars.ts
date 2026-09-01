@@ -29,7 +29,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         {type: 'doc', id: 'api-keys', label: 'API Keys'},
-        {type: 'doc', id: 'webhooks', label: 'Webhooks v1'},
+        {type: 'doc', id: 'webhooks', label: 'Webhooks'},
       ],
     },
     {
